@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Instagram · iOS Liquid Glass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-elevated: #0a0a0c;
+      --surface: rgba(28, 28, 30, 0.55);
+      --surface-2: rgba(44, 44, 46, 0.45);
+      --surface-3: rgba(58, 58, 60, 0.4);
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glass-highlight: rgba(255, 255, 255, 0.18);
+      --text: #f5f5f7;
+      --text-secondary: rgba(235, 235, 245, 0.6);
+      --text-tertiary: rgba(235, 235, 245, 0.3);
+      --accent: #0a84ff;
+      --accent-glow: rgba(10, 132, 255, 0.35);
+      --like: #ff375f;
+      --like-glow: rgba(255, 55, 95, 0.4);
+      --success: #30d158;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --radius: 20px;
+      --radius-sm: 14px;
+      --radius-xs: 10px;
+      --blur: 40px;
+      --blur-strong: 60px;
+      --spring: cubic-bezier(0.34, 1.45, 0.64, 1);
+      --spring-soft: cubic-bezier(0.22, 1.2, 0.36, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html, body {
+      height: 100%;
+      background: #050505;
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+
+    .app-shell {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #050505 70%);
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 430px;
+      height: 100%;
+      max-height: 932px;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 0 0 10px #111,
+        0 0 0 11px rgba(255,255,255,0.03),
+        0 40px 100px rgba(0,0,0,0.7);
+    }
+
+    @media (min-width: 500px) {
+      .phone {
+        border-radius: 48px;
+      }
+    }
+
+    .glass {
+      background: var(--surface);
+      backdrop-filter: blur(var(--blur)) saturate(180%) brightness(1.05);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(180%) brightness(1.05);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        inset 0 1px 0 0 var(--glass-highlight),
+        0 8px 32px rgba(0,0,0,0.25);
+    }
+
+    .glass-strong {
+      background: rgba(18, 18, 20, 0.78);
+      backdrop-filter: blur(var(--blur-strong)) saturate(200%) brightness(1.08);
+      -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(200%) brightness(1.08);
+      border: 1px solid rgba(255,255,255,0.09);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255,255,255,0.12),
+        0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    .glass-nav {
+      background: rgba(12, 12, 14, 0.72);
+      backdrop-filter: blur(50px) saturate(190%);
+      -webkit-backdrop-filter: blur(50px) saturate(190%);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.3);
+    }
+
+    .status-bar {
+      height: calc(48px + var(--safe-top));
+      padding-top: var(--safe-top);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 28px;
+      padding-right: 22px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      z-index: 100;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .status-bar .time {
+      font-variant-numeric: tabular-nums;
+      min-width: 54px;
+    }
+
+    .status-icons {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .status-icons svg {
+      width: 17px;
+      height: 17px;
+      opacity: 0.95;
+    }
+
+    .header {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: relative;
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.7px;
+      background: linear-gradient(135deg, #fff 0%, #e0e0e8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-title.logo {
+      font-family: 'Inter', cursive;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      font-size: 26px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.28s var(--spring), background 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.86);
+      background: var(--glass);
+    }
+
+    .icon-btn svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s var(--spring);
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding-bottom: 100px;
+      position: relative;
+    }
+
+    .content::-webkit-scrollbar { display: none; }
+
+    .stories-row {
+      display: flex;
+      gap: 16px;
+      padding: 14px 18px 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .stories-row::-webkit-scrollbar { display: none; }
+
+    .story-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.35s var(--spring);
+    }
+
+    .story-item:active {
+      transform: scale(0.9);
+    }
+
+    .story-ring {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      position: relative;
+      box-shadow: 0 4px 16px rgba(220, 39, 67, 0.25);
+      transition: transform 0.4s var(--spring), box-shadow 0.3s;
+    }
+
+    .story-item:hover .story-ring {
+      transform: scale(1.05);
+      box-shadow: 0 6px 24px rgba(220, 39, 67, 0.4);
+    }
+
+    .story-ring.seen {
+      background: rgba(255,255,255,0.22);
+      box-shadow: none;
+    }
+
+    .story-ring.own {
+      background: linear-gradient(145deg, #5ac8fa, #0a84ff, #0071e3);
+      box-shadow: 0 4px 18px rgba(10, 132, 255, 0.35);
+    }
+
+    .story-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3.5px solid #000;
+      background: #1c1c1e;
+      display: block;
+    }
+
+    .story-add {
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 3px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1;
+      color: white;
+      box-shadow: 0 2px 8px rgba(10, 132, 255, 0.5);
+    }
+
+    .story-name {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      max-width: 78px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+      font-weight: 450;
+    }
+
+    .profile-header {
+      padding: 6px 18px 22px;
+      animation: slideUp 0.5s var(--ease-out) both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      margin-bottom: 18px;
+    }
+
+    .profile-pic-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .profile-pic {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid rgba(255,255,255,0.12);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+      transition: transform 0.4s var(--spring);
+    }
+
+    .profile-pic:active {
+      transform: scale(0.96);
+    }
+
+    .profile-stats {
+      display: flex;
+      flex: 1;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    .stat {
+      cursor: pointer;
+      transition: transform 0.25s var(--spring), opacity 0.2s;
+      padding: 6px 4px;
+      border-radius: 10px;
+    }
+
+    .stat:active {
+      transform: scale(0.92);
+      opacity: 0.7;
+    }
+
+    .stat-num {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .stat-label {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      font-weight: 450;
+    }
+
+    .profile-info {
+      margin-bottom: 16px;
+    }
+
+    .profile-name {
+      font-size: 15.5px;
+      font-weight: 650;
+      margin-bottom: 3px;
+      letter-spacing: -0.2px;
+    }
+
+    .profile-bio {
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--text);
+      white-space: pre-line;
+      font-weight: 400;
+    }
+
+    .profile-link {
+      color: #a8d4ff;
+      font-size: 14px;
+      margin-top: 5px;
+      display: inline-block;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .profile-link:active {
+      color: var(--accent);
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      height: 38px;
+      border-radius: 12px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.28s var(--spring), opacity 0.2s, box-shadow 0.25s, background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      letter-spacing: -0.15px;
+    }
+
+    .btn:active {
+      transform: scale(0.955);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+    }
+
+    .btn-secondary:active {
+      background: var(--surface-3);
+    }
+
+    .btn-icon {
+      width: 38px;
+      flex: 0 0 38px;
+      padding: 0;
+    }
+
+    .highlights {
+      display: flex;
+      gap: 18px;
+      padding: 6px 18px 22px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      animation: slideUp 0.55s var(--ease-out) 0.08s both;
+    }
+
+    .highlights::-webkit-scrollbar { display: none; }
+
+    .highlight {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.3s var(--spring);
+    }
+
+    .highlight:active {
+      transform: scale(0.9);
+    }
+
+    .highlight-ring {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      padding: 3.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .highlight:hover .highlight-ring {
+      border-color: rgba(255,255,255,0.4);
+      box-shadow: 0 4px 16px rgba(255,255,255,0.08);
+    }
+
+    .highlight-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #1c1c1e;
+    }
+
+    .highlight-add {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    .highlight-name {
+      font-size: 12px;
+      color: var(--text);
+      max-width: 72px;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 450;
+    }
+
+    .profile-tabs {
+      display: flex;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+    }
+
+    .tab {
+      flex: 1;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.25s;
+    }
+
+    .tab.active {
+      color: var(--text);
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 22%;
+      right: 22%;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 1px;
+      animation: tabIn 0.3s var(--spring);
+    }
+
+    @keyframes tabIn {
+      from { transform: scaleX(0.4); opacity: 0; }
+      to { transform: scaleX(1); opacity: 1; }
+    }
+
+    .tab svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s var(--spring);
+    }
+
+    .tab.active svg {
+      transform: scale(1.08);
+    }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+      animation: fadeIn 0.5s var(--ease-out) 0.12s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .post-thumb {
+      aspect-ratio: 1;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease-out);
+      will-change: transform;
+    }
+
+    .post-thumb:active img {
+      transform: scale(1.06);
+    }
+
+    .post-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      color: white;
+      font-weight: 650;
+      font-size: 13.5px;
+      padding-bottom: 12px;
+      pointer-events: none;
+    }
+
+    .post-thumb:hover .post-overlay {
+      opacity: 1;
+    }
+
+    .post-overlay span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(58px + var(--safe-bottom));
+      padding-bottom: var(--safe-bottom);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 100;
+      transition: transform 0.4s var(--ease-out), opacity 0.3s;
+    }
+
+    .bottom-nav.hidden {
+      transform: translateY(110%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-item {
+      width: 58px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s var(--spring);
+    }
+
+    .nav-item:active {
+      transform: scale(0.82);
+    }
+
+    .nav-item svg {
+      width: 26px;
+      height: 26px;
+      transition: transform 0.35s var(--spring), opacity 0.2s;
+      opacity: 0.85;
+    }
+
+    .nav-item.active svg {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    .nav-item .badge {
+      position: absolute;
+      top: 3px;
+      right: 11px;
+      min-width: 17px;
+      height: 17px;
+      background: var(--like);
+      border-radius: 9px;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      border: 2.5px solid #0c0c0e;
+      box-shadow: 0 2px 8px var(--like-glow);
+      animation: badgePop 0.5s var(--spring);
+    }
+
+    @keyframes badgePop {
+      0% { transform: scale(0); }
+      60% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .view {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      animation: viewIn 0.4s var(--ease-out);
+    }
+
+    .view.active {
+      display: flex;
+    }
+
+    @keyframes viewIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .feed-post {
+      margin-bottom: 8px;
+      animation: postIn 0.5s var(--ease-out) both;
+    }
+
+    .feed-post:nth-child(1) { animation-delay: 0.05s; }
+    .feed-post:nth-child(2) { animation-delay: 0.1s; }
+    .feed-post:nth-child(3) { animation-delay: 0.15s; }
+    .feed-post:nth-child(4) { animation-delay: 0.2s; }
+    .feed-post:nth-child(5) { animation-delay: 0.25s; }
+
+    @keyframes postIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feed-header {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 16px;
+    }
+
+    .feed-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(255,255,255,0.1);
+    }
+
+    .feed-user {
+      flex: 1;
+      font-size: 14.5px;
+      font-weight: 650;
+      letter-spacing: -0.2px;
+    }
+
+    .feed-img-wrap {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #0d0d0d;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feed-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+
+    .feed-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px 6px;
+    }
+
+    .feed-actions .icon-btn {
+      width: 34px;
+      height: 34px;
+    }
+
+    .feed-actions .icon-btn svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .feed-likes {
+      padding: 2px 16px 0;
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: -0.15px;
+    }
+
+    .feed-caption {
+      padding: 5px 16px 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .feed-caption strong {
+      font-weight: 650;
+      margin-right: 6px;
+    }
+
+    .feed-time {
+      padding: 7px 16px 14px;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      font-weight: 500;
+    }
+
+    .heart-burst {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+      z-index: 10;
+      filter: drop-shadow(0 4px 20px rgba(255,55,95,0.5));
+    }
+
+    .heart-burst.show {
+      animation: heartPop 0.95s var(--spring) forwards;
+    }
+
+    @keyframes heartPop {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      12% { transform: translate(-50%, -50%) scale(1.35); opacity: 1; }
+      28% { transform: translate(-50%, -50%) scale(0.92); }
+      42% { transform: translate(-50%, -50%) scale(1.12); }
+      70% { opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.05); opacity: 0; }
+    }
+
+    .messages-list {
+      padding: 10px 0;
+    }
+
+    .msg-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.25s var(--spring);
+      border-radius: 16px;
+      margin: 0 8px;
+    }
+
+    .msg-item:active {
+      background: var(--glass);
+      transform: scale(0.98);
+    }
+
+    .msg-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+
+    .msg-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .msg-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .msg-name {
+      font-size: 16px;
+      font-weight: 650;
+      letter-spacing: -0.2px;
+    }
+
+    .msg-time {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      font-weight: 450;
+    }
+
+    .msg-preview {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 400;
+    }
+
+    .msg-preview.unread {
+      color: var(--text);
+      font-weight: 550;
+    }
+
+    .msg-dot {
+      width: 9px;
+      height: 9px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px var(--accent-glow);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.9); }
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      height: 58px;
+      flex-shrink: 0;
+    }
+
+    .chat-back {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.25s var(--spring), background 0.2s;
+    }
+
+    .chat-back:active {
+      transform: scale(0.88);
+      background: var(--glass);
+    }
+
+    .chat-user-info {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 1;
+    }
+
+    .chat-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(255,255,255,0.1);
+    }
+
+    .chat-name {
+      font-size: 15.5px;
+      font-weight: 650;
+      letter-spacing: -0.2px;
+    }
+
+    .chat-status {
+      font-size: 12px;
+      color: var(--success);
+      font-weight: 500;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .bubble {
+      max-width: 78%;
+      padding: 11px 15px;
+      border-radius: 22px;
+      font-size: 15.5px;
+      line-height: 1.38;
+      animation: bubbleIn 0.35s var(--spring);
+      word-wrap: break-word;
+    }
+
+    @keyframes bubbleIn {
+      from { opacity: 0; transform: scale(0.88) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .bubble.them {
+      background: var(--surface-2);
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .bubble.me {
+      background: linear-gradient(135deg, #0a84ff, #0071e3);
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+      box-shadow: 0 4px 16px var(--accent-glow);
+      color: white;
+    }
+
+    .chat-input-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      padding-bottom: calc(12px + var(--safe-bottom));
+      flex-shrink: 0;
+    }
+
+    .chat-input {
+      flex: 1;
+      height: 42px;
+      border-radius: 24px;
+      border: 1px solid var(--glass-border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 0 18px;
+      font-size: 15.5px;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      backdrop-filter: blur(20px);
+    }
+
+    .chat-input:focus {
+      border-color: rgba(10, 132, 255, 0.4);
+      box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.12);
+    }
+
+    .chat-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .chat-send {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0a84ff, #0071e3);
+      border: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.28s var(--spring), box-shadow 0.25s;
+      box-shadow: 0 4px 14px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .chat-send:active {
+      transform: scale(0.88);
+    }
+
+    .story-viewer {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      z-index: 300;
+      display: none;
+      flex-direction: column;
+      animation: storyOpen 0.4s var(--ease-out);
+    }
+
+    .story-viewer.active {
+      display: flex;
+    }
+
+    @keyframes storyOpen {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .story-progress {
+      display: flex;
+      gap: 4px;
+      padding: 14px 12px 0;
+      padding-top: calc(14px + var(--safe-top));
+      z-index: 10;
+    }
+
+    .story-bar {
+      flex: 1;
+      height: 2.5px;
+      background: rgba(255,255,255,0.28);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .story-bar-fill {
+      height: 100%;
+      background: white;
+      width: 0%;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(255,255,255,0.5);
+    }
+
+    .story-bar.active .story-bar-fill {
+      animation: progress 5s linear forwards;
+    }
+
+    @keyframes progress {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+
+    .story-top {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 14px 16px;
+      z-index: 10;
+    }
+
+    .story-user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid rgba(255,255,255,0.3);
+    }
+
+    .story-user-name {
+      font-size: 14.5px;
+      font-weight: 650;
+      flex: 1;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .story-close {
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s var(--spring);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .story-close:active {
+      transform: scale(0.85);
+    }
+
+    .story-media {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: storyImgIn 0.45s var(--ease-out);
+    }
+
+    @keyframes storyImgIn {
+      from { opacity: 0; transform: scale(1.05); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .story-nav-left, .story-nav-right {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 35%;
+      z-index: 5;
+    }
+
+    .story-nav-left { left: 0; }
+    .story-nav-right { right: 0; }
+
+    .post-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 250;
+      display: none;
+      flex-direction: column;
+      animation: modalIn 0.4s var(--ease-out);
+      backdrop-filter: blur(20px);
+    }
+
+    .post-modal.active {
+      display: flex;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(40px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .post-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      padding-top: calc(12px + var(--safe-top));
+      flex-shrink: 0;
+    }
+
+    .post-modal-close {
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
+      transition: transform 0.25s var(--spring);
+    }
+
+    .post-modal-close:active {
+      transform: scale(0.85);
+    }
+
+    .post-modal-img {
+      width: 100%;
+      max-height: 58vh;
+      object-fit: contain;
+      background: #0a0a0a;
+      animation: imgReveal 0.5s var(--ease-out);
+    }
+
+    @keyframes imgReveal {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .post-modal-actions {
+      display: flex;
+      gap: 14px;
+      padding: 16px 16px 8px;
+    }
+
+    .post-modal-likes {
+      padding: 0 16px;
+      font-weight: 650;
+      font-size: 14.5px;
+      letter-spacing: -0.15px;
+    }
+
+    .post-modal-caption {
+      padding: 8px 16px 24px;
+      font-size: 14.5px;
+      line-height: 1.45;
+    }
+
+    .liked path {
+      fill: var(--like);
+      stroke: var(--like);
+    }
+
+    .liked svg {
+      animation: likeBounce 0.45s var(--spring);
+    }
+
+    @keyframes likeBounce {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.3); }
+      60% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60%;
+      gap: 12px;
+      color: var(--text-secondary);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .empty-state svg {
+      width: 64px;
+      height: 64px;
+      opacity: 0.35;
+      margin-bottom: 8px;
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      font-weight: 650;
+      color: var(--text);
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .hidden { display: none !important; }
+
+    ::selection {
+      background: rgba(10, 132, 255, 0.35);
+    }
+
+    img {
+      background: #141414;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="phone" id="phone">
+
+      <!-- PROFILE VIEW (default) -->
+      <div class="view active" id="view-profile">
+        <div class="status-bar">
+          <span class="time" id="clock">9:41</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.46 3 3.34 4.87.29 7.96L1.7 9.37C4.32 6.78 7.96 5.2 12 5.2s7.68 1.58 10.3 4.17l1.41-1.41C20.66 4.87 16.54 3 12 3z"/><path d="M12 8.2c-2.67 0-5.14.96-7.1 2.55l1.41 1.41C8.05 10.79 9.95 10 12 10s3.95.79 5.69 2.16l1.41-1.41C17.14 9.16 14.67 8.2 12 8.2z"/><path d="M12 13.4c-1.38 0-2.63.5-3.59 1.33l1.41 1.41c.58-.5 1.35-.8 2.18-.8s1.6.3 2.18.8l1.41-1.41C14.63 13.9 13.38 13.4 12 13.4z"/><circle cx="12" cy="19" r="2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+          </div>
+        </div>
+
+        <div class="header">
+          <div class="header-title">tu_usuario</div>
+          <div class="header-actions">
+            <button class="icon-btn" title="Crear">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <button class="icon-btn" title="Menú">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="content" id="profile-content">
+          <div class="stories-row" id="stories-row">
+            <div class="story-item" data-story="0">
+              <div class="story-ring own">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G" alt="Tu historia">
+                <div class="story-add">+</div>
+              </div>
+              <span class="story-name">Tu historia</span>
+            </div>
+            <div class="story-item" data-story="1">
+              <div class="story-ring">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1RionuvB52Th_BMMrQUoLsh5FFyywsekr" alt="">
+              </div>
+              <span class="story-name">Amor ❤️</span>
+            </div>
+            <div class="story-item" data-story="2">
+              <div class="story-ring">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo" alt="">
+              </div>
+              <span class="story-name">familia</span>
+            </div>
+            <div class="story-item" data-story="3">
+              <div class="story-ring seen">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1Qag0klaAchGBAxGZjqgprL_frp_Ub85d" alt="">
+              </div>
+              <span class="story-name">playa</span>
+            </div>
+            <div class="story-item" data-story="4">
+              <div class="story-ring">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou" alt="">
+              </div>
+              <span class="story-name">noche</span>
+            </div>
+          </div>
+
+          <div class="profile-header">
+            <div class="profile-top">
+              <div class="profile-pic-wrap">
+                <img class="profile-pic" src="https://drive.google.com/uc?export=view&id=1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G" alt="Perfil">
+              </div>
+              <div class="profile-stats">
+                <div class="stat">
+                  <div class="stat-num">24</div>
+                  <div class="stat-label">publicaciones</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-num">1.2K</div>
+                  <div class="stat-label">seguidores</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-num">348</div>
+                  <div class="stat-label">seguidos</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-info">
+              <div class="profile-name">Tu Nombre</div>
+              <div class="profile-bio">🚀 Desarrollador web & diseño UI
+📚 Proyecto educativo · Instagram iOS style
+📍 Ciudad · Disponible para colaborar</div>
+              <a class="profile-link" href="#">linktr.ee/tuusuario</a>
+            </div>
+
+            <div class="profile-actions">
+              <button class="btn btn-secondary">Editar perfil</button>
+              <button class="btn btn-secondary">Compartir perfil</button>
+              <button class="btn btn-secondary btn-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="highlights">
+            <div class="highlight">
+              <div class="highlight-ring">
+                <div class="highlight-add">+</div>
+              </div>
+              <span class="highlight-name">Nuevo</span>
+            </div>
+            <div class="highlight">
+              <div class="highlight-ring">
+                <img class="highlight-img" src="https://drive.google.com/uc?export=view&id=1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo" alt="">
+              </div>
+              <span class="highlight-name">Familia</span>
+            </div>
+            <div class="highlight">
+              <div class="highlight-ring">
+                <img class="highlight-img" src="https://drive.google.com/uc?export=view&id=1Qag0klaAchGBAxGZjqgprL_frp_Ub85d" alt="">
+              </div>
+              <span class="highlight-name">Playa</span>
+            </div>
+            <div class="highlight">
+              <div class="highlight-ring">
+                <img class="highlight-img" src="https://drive.google.com/uc?export=view&id=1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou" alt="">
+              </div>
+              <span class="highlight-name">Noche</span>
+            </div>
+          </div>
+
+          <div class="profile-tabs">
+            <button class="tab active" data-tab="posts">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z"/></svg>
+            </button>
+            <button class="tab" data-tab="reels" disabled style="opacity:0.25;pointer-events:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M10 8l6 4-6 4V8z"/></svg>
+            </button>
+            <button class="tab" data-tab="tagged">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            </button>
+          </div>
+
+          <div class="posts-grid" id="posts-grid"></div>
+        </div>
+      </div>
+
+      <!-- HOME / FEED VIEW -->
+      <div class="view" id="view-home">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.46 3 3.34 4.87.29 7.96L1.7 9.37C4.32 6.78 7.96 5.2 12 5.2s7.68 1.58 10.3 4.17l1.41-1.41C20.66 4.87 16.54 3 12 3z"/><path d="M12 8.2c-2.67 0-5.14.96-7.1 2.55l1.41 1.41C8.05 10.79 9.95 10 12 10s3.95.79 5.69 2.16l1.41-1.41C17.14 9.16 14.67 8.2 12 8.2z"/><path d="M12 13.4c-1.38 0-2.63.5-3.59 1.33l1.41 1.41c.58-.5 1.35-.8 2.18-.8s1.6.3 2.18.8l1.41-1.41C14.63 13.9 13.38 13.4 12 13.4z"/><circle cx="12" cy="19" r="2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+          </div>
+        </div>
+
+        <div class="header">
+          <div class="header-title logo">Instagram</div>
+          <div class="header-actions">
+            <button class="icon-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </button>
+            <button class="icon-btn" onclick="switchView('messages')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="content" id="feed-content">
+          <div class="stories-row" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div class="story-item" data-story="0">
+              <div class="story-ring own">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G" alt="">
+                <div class="story-add">+</div>
+              </div>
+              <span class="story-name">Tu historia</span>
+            </div>
+            <div class="story-item" data-story="1">
+              <div class="story-ring">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1RionuvB52Th_BMMrQUoLsh5FFyywsekr" alt="">
+              </div>
+              <span class="story-name">Amor ❤️</span>
+            </div>
+            <div class="story-item" data-story="2">
+              <div class="story-ring">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo" alt="">
+              </div>
+              <span class="story-name">familia</span>
+            </div>
+            <div class="story-item" data-story="3">
+              <div class="story-ring seen">
+                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1Qag0klaAchGBAxGZjqgprL_frp_Ub85d" alt="">
+              </div>
+              <span class="story-name">playa</span>
+            </div>
+          </div>
+
+          <div id="feed-posts"></div>
+        </div>
+      </div>
+
+      <!-- MESSAGES VIEW -->
+      <div class="view" id="view-messages">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.46 3 3.34 4.87.29 7.96L1.7 9.37C4.32 6.78 7.96 5.2 12 5.2s7.68 1.58 10.3 4.17l1.41-1.41C20.66 4.87 16.54 3 12 3z"/><path d="M12 8.2c-2.67 0-5.14.96-7.1 2.55l1.41 1.41C8.05 10.79 9.95 10 12 10s3.95.79 5.69 2.16l1.41-1.41C17.14 9.16 14.67 8.2 12 8.2z"/><path d="M12 13.4c-1.38 0-2.63.5-3.59 1.33l1.41 1.41c.58-.5 1.35-.8 2.18-.8s1.6.3 2.18.8l1.41-1.41C14.63 13.9 13.38 13.4 12 13.4z"/><circle cx="12" cy="19" r="2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+          </div>
+        </div>
+
+        <div class="header">
+          <div class="header-title">Mensajes</div>
+          <div class="header-actions">
+            <button class="icon-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="messages-list" id="messages-list"></div>
+        </div>
+      </div>
+
+      <!-- CHAT VIEW -->
+      <div class="view" id="view-chat">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.46 3 3.34 4.87.29 7.96L1.7 9.37C4.32 6.78 7.96 5.2 12 5.2s7.68 1.58 10.3 4.17l1.41-1.41C20.66 4.87 16.54 3 12 3z"/><path d="M12 8.2c-2.67 0-5.14.96-7.1 2.55l1.41 1.41C8.05 10.79 9.95 10 12 10s3.95.79 5.69 2.16l1.41-1.41C17.14 9.16 14.67 8.2 12 8.2z"/><path d="M12 13.4c-1.38 0-2.63.5-3.59 1.33l1.41 1.41c.58-.5 1.35-.8 2.18-.8s1.6.3 2.18.8l1.41-1.41C14.63 13.9 13.38 13.4 12 13.4z"/><circle cx="12" cy="19" r="2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+          </div>
+        </div>
+
+        <div class="chat-header glass-strong">
+          <button class="chat-back" onclick="switchView('messages')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="chat-user-info">
+            <img class="chat-avatar" id="chat-avatar" src="" alt="">
+            <div>
+              <div class="chat-name" id="chat-name">Amor ❤️</div>
+              <div class="chat-status">Activo ahora</div>
+            </div>
+          </div>
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </button>
+        </div>
+
+        <div class="chat-messages" id="chat-messages"></div>
+
+        <div class="chat-input-bar glass-nav">
+          <input type="text" class="chat-input" id="chat-input" placeholder="Mensaje..." autocomplete="off">
+          <button class="chat-send" onclick="sendMessage()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="view" id="view-search">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.46 3 3.34 4.87.29 7.96L1.7 9.37C4.32 6.78 7.96 5.2 12 5.2s7.68 1.58 10.3 4.17l1.41-1.41C20.66 4.87 16.54 3 12 3z"/><path d="M12 8.2c-2.67 0-5.14.96-7.1 2.55l1.41 1.41C8.05 10.79 9.95 10 12 10s3.95.79 5.69 2.16l1.41-1.41C17.14 9.16 14.67 8.2 12 8.2z"/><path d="M12 13.4c-1.38 0-2.63.5-3.59 1.33l1.41 1.41c.58-.5 1.35-.8 2.18-.8s1.6.3 2.18.8l1.41-1.41C14.63 13.9 13.38 13.4 12 13.4z"/><circle cx="12" cy="19" r="2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+          </div>
+        </div>
+        <div class="header">
+          <div class="header-title">Explorar</div>
+        </div>
+        <div class="content">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <h3>Explorar</h3>
+            <p>Busca personas, hashtags o lugares.<br>Próximamente en este proyecto educativo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM NAV -->
+      <nav class="bottom-nav glass-nav" id="bottom-nav">
+        <button class="nav-item" data-view="home" onclick="switchView('home')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </button>
+        <button class="nav-item" data-view="search" onclick="switchView('search')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button class="nav-item" data-view="create">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+        </button>
+        <button class="nav-item" data-view="messages" onclick="switchView('messages')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span class="badge">1</span>
+        </button>
+        <button class="nav-item active" data-view="profile" onclick="switchView('profile')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        </button>
+      </nav>
+
+      <!-- STORY VIEWER -->
+      <div class="story-viewer" id="story-viewer">
+        <div class="story-progress" id="story-progress"></div>
+        <div class="story-top">
+          <img class="story-user-avatar" id="story-user-avatar" src="" alt="">
+          <span class="story-user-name" id="story-user-name"></span>
+          <button class="story-close" onclick="closeStory()">×</button>
+        </div>
+        <div class="story-media" id="story-media">
+          <div class="story-nav-left" onclick="prevStory()"></div>
+          <div class="story-nav-right" onclick="nextStory()"></div>
+          <img id="story-img" src="" alt="">
+        </div>
+      </div>
+
+      <!-- POST MODAL -->
+      <div class="post-modal" id="post-modal">
+        <div class="post-modal-header">
+          <button class="post-modal-close" onclick="closePost()">×</button>
+          <span style="font-weight:650;font-size:16.5px;letter-spacing:-0.3px;">Publicación</span>
+        </div>
+        <img class="post-modal-img" id="post-modal-img" src="" alt="">
+        <div class="post-modal-actions">
+          <button class="icon-btn like-btn" onclick="toggleLike(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </button>
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </button>
+        </div>
+        <div class="post-modal-likes" id="post-modal-likes">1.284 Me gusta</div>
+        <div class="post-modal-caption" id="post-modal-caption"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Enlaces directos de tu Google Drive
+    const drive = (id) => `https://drive.google.com/uc?export=view&id=${id}`;
+
+    const PROFILE_PIC = drive('1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G'); // Selfie principal
+    const AMOR_AVATAR = drive('1RionuvB52Th_BMMrQUoLsh5FFyywsekr'); // Para el chat Amor
+
+    const postsData = [
+      { img: drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo'), likes: 1284, caption: 'Los mejores momentos ❤️ #familia' },
+      { img: drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d'), likes: 892, caption: 'Día de playa con los panas 🏖️' },
+      { img: drive('1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G'), likes: 2103, caption: 'Selfie del día ✨' },
+      { img: drive('1RionuvB52Th_BMMrQUoLsh5FFyywsekr'), likes: 756, caption: 'Modo filtro activado 😈' },
+      { img: drive('1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou'), likes: 1456, caption: 'Vibes de noche 💫' },
+      { img: drive('1ejWOzdYBk0m00OI5c1i9YynD6XaJ1QAw'), likes: 634, caption: 'Momento random' },
+      { img: drive('1QPc0hDcSeUPSYuz9sY2SN0gigLxhQp9p'), likes: 987, caption: 'Otra más 📸' },
+      { img: drive('1jobHBVpLQS8vvo-fHoOYiAA-NHkCXcOW'), likes: 1720, caption: 'Buenos recuerdos' },
+      { img: drive('1x-nruoP8OyY3KUih-3IBfjIPuNnjU9cq'), likes: 543, caption: 'Simple y real' },
+    ];
+
+    const storiesData = [
+      { name: 'Tu historia', avatar: PROFILE_PIC, media: drive('1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G') },
+      { name: 'Amor ❤️', avatar: AMOR_AVATAR, media: drive('1RionuvB52Th_BMMrQUoLsh5FFyywsekr') },
+      { name: 'familia', avatar: drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo'), media: drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo') },
+      { name: 'playa', avatar: drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d'), media: drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d') },
+      { name: 'noche', avatar: drive('1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou'), media: drive('1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou') },
+    ];
+
+    // Solo un chat: Amor ❤️
+    const messagesData = [
+      {
+        name: 'Amor ❤️',
+        avatar: AMOR_AVATAR,
+        preview: 'Te extraño mucho 💕',
+        time: 'ahora',
+        unread: true
+      }
+    ];
+
+    const chatHistory = {
+      'Amor ❤️': [
+        { from: 'them', text: 'Hola mi amor ❤️' },
+        { from: 'me', text: 'Holaaa 😍 ¿Cómo estás?' },
+        { from: 'them', text: 'Pensando en ti…' },
+        { from: 'me', text: 'Yo también en ti 💕' },
+        { from: 'them', text: 'Te extraño mucho 💕' },
+      ]
+    };
+
+    function init() {
+      renderPostsGrid();
+      renderFeed();
+      renderMessages();
+      updateClock();
+      setInterval(updateClock, 20000);
+
+      document.querySelectorAll('.story-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const idx = parseInt(item.dataset.story);
+          openStory(idx);
+        });
+      });
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const h = now.getHours().toString().padStart(2, '0');
+      const m = now.getMinutes().toString().padStart(2, '0');
+      document.querySelectorAll('.time').forEach(el => el.textContent = `${h}:${m}`);
+    }
+
+    function switchView(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById(`view-${viewName}`);
+      if (target) {
+        void target.offsetWidth;
+        target.classList.add('active');
+      }
+
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      const navBtn = document.querySelector(`.nav-item[data-view="${viewName}"]`);
+      if (navBtn) navBtn.classList.add('active');
+
+      const bottomNav = document.getElementById('bottom-nav');
+      if (viewName === 'chat') {
+        bottomNav.classList.add('hidden');
+      } else {
+        bottomNav.classList.remove('hidden');
+      }
+    }
+
+    function renderPostsGrid() {
+      const grid = document.getElementById('posts-grid');
+      grid.innerHTML = postsData.map((p, i) => `
+        <div class="post-thumb" onclick="openPost(${i})" style="animation-delay: ${i * 0.04}s">
+          <img src="${p.img}" alt="Post ${i+1}" loading="lazy">
+          <div class="post-overlay">
+            <span>♥ ${formatNumber(p.likes)}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function formatNumber(n) {
+      if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+      return n;
+    }
+
+    function renderFeed() {
+      const container = document.getElementById('feed-posts');
+      const users = ['tu_usuario', 'Amor ❤️', 'familia', 'playa'];
+      const avatars = [
+        PROFILE_PIC,
+        AMOR_AVATAR,
+        drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo'),
+        drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d'),
+      ];
+
+      container.innerHTML = postsData.slice(0, 5).map((p, i) => `
+        <article class="feed-post">
+          <div class="feed-header">
+            <img class="feed-avatar" src="${avatars[i % avatars.length]}" alt="">
+            <span class="feed-user">${users[i % users.length]}</span>
+            <button class="icon-btn" style="margin-left:auto">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+            </button>
+          </div>
+          <div class="feed-img-wrap" ondblclick="doubleTapLike(this)">
+            <img class="feed-img" src="${p.img}" alt="" loading="lazy">
+            <div class="heart-burst">
+              <svg width="90" height="90" viewBox="0 0 24 24" fill="#ff375f"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+          </div>
+          <div class="feed-actions">
+            <button class="icon-btn like-btn" onclick="toggleLike(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+            <button class="icon-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </button>
+            <button class="icon-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            </button>
+            <button class="icon-btn" style="margin-left:auto">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+          <div class="feed-likes">${formatNumber(p.likes)} Me gusta</div>
+          <div class="feed-caption"><strong>${users[i % users.length]}</strong>${p.caption}</div>
+          <div class="feed-time">Hace ${i + 1} horas</div>
+        </article>
+      `).join('');
+    }
+
+    function toggleLike(btn) {
+      btn.classList.toggle('liked');
+      const svg = btn.querySelector('svg');
+      if (btn.classList.contains('liked')) {
+        svg.setAttribute('fill', '#ff375f');
+        svg.setAttribute('stroke', '#ff375f');
+      } else {
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+      }
+    }
+
+    function doubleTapLike(wrap) {
+      const heart = wrap.querySelector('.heart-burst');
+      heart.classList.remove('show');
+      void heart.offsetWidth;
+      heart.classList.add('show');
+
+      const likeBtn = wrap.closest('.feed-post').querySelector('.like-btn');
+      if (!likeBtn.classList.contains('liked')) {
+        toggleLike(likeBtn);
+      }
+    }
+
+    function openPost(index) {
+      const p = postsData[index];
+      document.getElementById('post-modal-img').src = p.img;
+      document.getElementById('post-modal-likes').textContent = `${formatNumber(p.likes)} Me gusta`;
+      document.getElementById('post-modal-caption').innerHTML = `<strong>tu_usuario</strong> ${p.caption}`;
+      document.getElementById('post-modal').classList.add('active');
+    }
+
+    function closePost() {
+      document.getElementById('post-modal').classList.remove('active');
+    }
+
+    let currentStory = 0;
+    let storyTimer = null;
+
+    function openStory(index) {
+      currentStory = index;
+      const s = storiesData[index];
+      document.getElementById('story-user-avatar').src = s.avatar;
+      document.getElementById('story-user-name').textContent = s.name;
+      document.getElementById('story-img').src = s.media;
+
+      const progress = document.getElementById('story-progress');
+      progress.innerHTML = storiesData.map((_, i) => `
+        <div class="story-bar ${i === index ? 'active' : ''}">
+          <div class="story-bar-fill" style="${i < index ? 'width:100%' : ''}"></div>
+        </div>
+      `).join('');
+
+      document.getElementById('story-viewer').classList.add('active');
+      startStoryTimer();
+    }
+
+    function startStoryTimer() {
+      clearTimeout(storyTimer);
+      storyTimer = setTimeout(() => nextStory(), 5000);
+    }
+
+    function nextStory() {
+      if (currentStory < storiesData.length - 1) {
+        openStory(currentStory + 1);
+      } else {
+        closeStory();
+      }
+    }
+
+    function prevStory() {
+      if (currentStory > 0) {
+        openStory(currentStory - 1);
+      }
+    }
+
+    function closeStory() {
+      clearTimeout(storyTimer);
+      document.getElementById('story-viewer').classList.remove('active');
+    }
+
+    function renderMessages() {
+      const list = document.getElementById('messages-list');
+      list.innerHTML = messagesData.map(m => `
+        <div class="msg-item" onclick="openChat('${m.name}', '${m.avatar}')">
+          <img class="msg-avatar" src="${m.avatar}" alt="">
+          <div class="msg-info">
+            <div class="msg-top">
+              <span class="msg-name">${m.name}</span>
+              <span class="msg-time">${m.time}</span>
+            </div>
+            <div class="msg-preview ${m.unread ? 'unread' : ''}">${m.preview}</div>
+          </div>
+          ${m.unread ? '<div class="msg-dot"></div>' : ''}
+        </div>
+      `).join('');
+    }
+
+    function openChat(name, avatar) {
+      document.getElementById('chat-name').textContent = name;
+      document.getElementById('chat-avatar').src = avatar;
+
+      const messages = chatHistory[name] || [
+        { from: 'them', text: 'Hola ❤️' },
+        { from: 'me', text: '¡Hola mi amor!' },
+      ];
+
+      const container = document.getElementById('chat-messages');
+      container.innerHTML = messages.map(m => `
+        <div class="bubble ${m.from}">${m.text}</div>
+      `).join('');
+
+      container.scrollTop = container.scrollHeight;
+      switchView('chat');
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chat-messages');
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble me';
+      bubble.textContent = text;
+      container.appendChild(bubble);
+      container.scrollTop = container.scrollHeight;
+      input.value = '';
+
+      const replies = [
+        'Te amo ❤️',
+        'Eres lo mejor de mi día 💕',
+        'Siempre contigo 🥰',
+        'Me haces muy feliz 😍',
+        '¿Cuándo nos vemos? 💖',
+        'Pensando en ti ahora mismo…',
+        'Eres mi persona favorita ❤️'
+      ];
+      setTimeout(() => {
+        const reply = document.createElement('div');
+        reply.className = 'bubble them';
+        reply.textContent = replies[Math.floor(Math.random() * replies.length)];
+        container.appendChild(reply);
+        container.scrollTop = container.scrollHeight;
+      }, 900 + Math.random() * 800);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && document.getElementById('view-chat').classList.contains('active')) {
+        sendMessage();
+      }
+      if (e.key === 'Escape') {
+        closeStory();
+        closePost();
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>
