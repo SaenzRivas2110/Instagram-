@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Instagram · iOS Liquid Glass</title>
+  <title>Instagram · Liquid Glass</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,30 +12,30 @@
       --bg: #000000;
       --bg-elevated: #0a0a0c;
       --surface: rgba(28, 28, 30, 0.55);
-      --surface-2: rgba(44, 44, 46, 0.45);
-      --surface-3: rgba(58, 58, 60, 0.4);
-      --glass: rgba(255, 255, 255, 0.06);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --glass-highlight: rgba(255, 255, 255, 0.18);
+      --surface-2: rgba(44, 44, 46, 0.5);
+      --surface-3: rgba(58, 58, 60, 0.45);
+      --glass: rgba(255, 255, 255, 0.07);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-highlight: rgba(255, 255, 255, 0.22);
       --text: #f5f5f7;
-      --text-secondary: rgba(235, 235, 245, 0.6);
-      --text-tertiary: rgba(235, 235, 245, 0.3);
+      --text-secondary: rgba(235, 235, 245, 0.62);
+      --text-tertiary: rgba(235, 235, 245, 0.32);
       --accent: #0a84ff;
-      --accent-glow: rgba(10, 132, 255, 0.35);
+      --accent-glow: rgba(10, 132, 255, 0.4);
       --like: #ff375f;
-      --like-glow: rgba(255, 55, 95, 0.4);
+      --like-glow: rgba(255, 55, 95, 0.45);
       --success: #30d158;
+      --instagram: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
-      --radius: 20px;
-      --radius-sm: 14px;
-      --radius-xs: 10px;
-      --blur: 40px;
-      --blur-strong: 60px;
+      --radius: 22px;
+      --radius-sm: 16px;
+      --radius-xs: 12px;
+      --blur: 48px;
+      --blur-strong: 72px;
       --spring: cubic-bezier(0.34, 1.45, 0.64, 1);
       --spring-soft: cubic-bezier(0.22, 1.2, 0.36, 1);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 
     * {
@@ -75,95 +75,132 @@
       display: flex;
       flex-direction: column;
       box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04),
+        0 0 0 1px rgba(255,255,255,0.05),
         0 0 0 10px #111,
         0 0 0 11px rgba(255,255,255,0.03),
         0 40px 100px rgba(0,0,0,0.7);
     }
 
-    @media (min-width: 500px) {
+    @media (min-width: 768px) {
+      .app-shell {
+        padding: 24px;
+        background: 
+          radial-gradient(ellipse at 30% 20%, rgba(10,132,255,0.08) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% 80%, rgba(255,55,95,0.06) 0%, transparent 50%),
+          #050505;
+      }
       .phone {
         border-radius: 48px;
+        max-height: 90vh;
+        height: 880px;
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,0.07),
+          0 0 0 14px #0c0c0e,
+          0 0 0 15px rgba(255,255,255,0.04),
+          0 50px 130px rgba(0,0,0,0.8);
       }
     }
 
+    @media (min-width: 1200px) {
+      .phone { max-width: 400px; }
+    }
+
+    /* ========== LIQUID GLASS ========== */
     .glass {
       background: var(--surface);
-      backdrop-filter: blur(var(--blur)) saturate(180%) brightness(1.05);
-      -webkit-backdrop-filter: blur(var(--blur)) saturate(180%) brightness(1.05);
+      backdrop-filter: blur(var(--blur)) saturate(180%) brightness(1.06);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(180%) brightness(1.06);
       border: 1px solid var(--glass-border);
       box-shadow:
         inset 0 1px 0 0 var(--glass-highlight),
-        0 8px 32px rgba(0,0,0,0.25);
+        0 8px 32px rgba(0,0,0,0.28);
     }
 
     .glass-strong {
-      background: rgba(18, 18, 20, 0.78);
-      backdrop-filter: blur(var(--blur-strong)) saturate(200%) brightness(1.08);
-      -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(200%) brightness(1.08);
-      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(16, 16, 18, 0.78);
+      backdrop-filter: blur(var(--blur-strong)) saturate(200%) brightness(1.1);
+      -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(200%) brightness(1.1);
+      border: 1px solid rgba(255,255,255,0.1);
       box-shadow:
-        inset 0 1px 0 0 rgba(255,255,255,0.12),
-        0 12px 40px rgba(0,0,0,0.35);
+        inset 0 1px 0 0 rgba(255,255,255,0.14),
+        0 12px 40px rgba(0,0,0,0.38);
     }
 
     .glass-nav {
-      background: rgba(12, 12, 14, 0.72);
-      backdrop-filter: blur(50px) saturate(190%);
-      -webkit-backdrop-filter: blur(50px) saturate(190%);
-      border-top: 1px solid rgba(255,255,255,0.07);
-      box-shadow: 0 -8px 40px rgba(0,0,0,0.3);
+      background: rgba(10, 10, 12, 0.72);
+      backdrop-filter: blur(56px) saturate(190%);
+      -webkit-backdrop-filter: blur(56px) saturate(190%);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.35);
     }
 
+    .glass-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 100%);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.13);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255,255,255,0.18),
+        0 10px 36px rgba(0,0,0,0.3);
+    }
+
+    /* ========== STATUS BAR ========== */
     .status-bar {
-      height: calc(48px + var(--safe-top));
-      padding-top: var(--safe-top);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-left: 28px;
-      padding-right: 22px;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-      z-index: 100;
-      position: relative;
-      flex-shrink: 0;
+      display: none;
+      height: 0;
+      padding: 0;
+      overflow: hidden;
     }
 
-    .status-bar .time {
-      font-variant-numeric: tabular-nums;
-      min-width: 54px;
+    @media (min-width: 768px) {
+      .status-bar {
+        display: flex;
+        height: 36px;
+        padding: 0 22px;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        z-index: 100;
+        position: relative;
+        flex-shrink: 0;
+        color: rgba(255,255,255,0.75);
+      }
+      .status-icons {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .status-icons svg {
+        width: 15px;
+        height: 15px;
+        opacity: 0.85;
+      }
     }
 
-    .status-icons {
-      display: flex;
-      gap: 7px;
-      align-items: center;
-    }
-
-    .status-icons svg {
-      width: 17px;
-      height: 17px;
-      opacity: 0.95;
-    }
-
+    /* ========== HEADER ========== */
     .header {
-      height: 52px;
+      height: 54px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 16px;
+      padding-top: env(safe-area-inset-top, 6px);
       position: relative;
       z-index: 50;
       flex-shrink: 0;
     }
 
+    @media (min-width: 768px) {
+      .header { padding-top: 0; }
+    }
+
     .header-title {
       font-size: 24px;
       font-weight: 700;
-      letter-spacing: -0.7px;
-      background: linear-gradient(135deg, #fff 0%, #e0e0e8 100%);
+      letter-spacing: -0.8px;
+      background: linear-gradient(135deg, #fff 0%, #d8d8e0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -172,19 +209,19 @@
     .header-title.logo {
       font-family: 'Inter', cursive;
       font-weight: 800;
-      letter-spacing: -1.2px;
-      font-size: 26px;
+      letter-spacing: -1.4px;
+      font-size: 27px;
     }
 
     .header-actions {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       align-items: center;
     }
 
     .icon-btn {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -193,37 +230,38 @@
       border: none;
       color: var(--text);
       cursor: pointer;
-      transition: transform 0.28s var(--spring), background 0.2s, box-shadow 0.2s;
+      transition: transform 0.28s var(--spring), background 0.2s;
       position: relative;
     }
 
     .icon-btn:active {
-      transform: scale(0.86);
+      transform: scale(0.84);
       background: var(--glass);
     }
 
     .icon-btn svg {
       width: 24px;
       height: 24px;
-      transition: transform 0.3s var(--spring);
     }
 
+    /* ========== CONTENT ========== */
     .content {
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      padding-bottom: 100px;
+      padding-bottom: 110px;
       position: relative;
     }
 
     .content::-webkit-scrollbar { display: none; }
 
+    /* ========== STORIES ========== */
     .stories-row {
       display: flex;
       gap: 16px;
-      padding: 14px 18px 20px;
+      padding: 14px 18px 18px;
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
@@ -241,34 +279,32 @@
       transition: transform 0.35s var(--spring);
     }
 
-    .story-item:active {
-      transform: scale(0.9);
-    }
+    .story-item:active { transform: scale(0.9); }
 
     .story-ring {
-      width: 76px;
-      height: 76px;
+      width: 78px;
+      height: 78px;
       border-radius: 50%;
       padding: 3px;
-      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      background: var(--instagram);
       position: relative;
-      box-shadow: 0 4px 16px rgba(220, 39, 67, 0.25);
+      box-shadow: 0 4px 18px rgba(220, 39, 67, 0.3);
       transition: transform 0.4s var(--spring), box-shadow 0.3s;
     }
 
     .story-item:hover .story-ring {
-      transform: scale(1.05);
-      box-shadow: 0 6px 24px rgba(220, 39, 67, 0.4);
+      transform: scale(1.06);
+      box-shadow: 0 6px 26px rgba(220, 39, 67, 0.45);
     }
 
     .story-ring.seen {
-      background: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.2);
       box-shadow: none;
     }
 
     .story-ring.own {
       background: linear-gradient(145deg, #5ac8fa, #0a84ff, #0071e3);
-      box-shadow: 0 4px 18px rgba(10, 132, 255, 0.35);
+      box-shadow: 0 4px 20px rgba(10, 132, 255, 0.4);
     }
 
     .story-avatar {
@@ -293,17 +329,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       line-height: 1;
       color: white;
-      box-shadow: 0 2px 8px rgba(10, 132, 255, 0.5);
+      box-shadow: 0 2px 10px rgba(10, 132, 255, 0.55);
     }
 
     .story-name {
       font-size: 11.5px;
       color: var(--text-secondary);
-      max-width: 78px;
+      max-width: 80px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -311,21 +347,59 @@
       font-weight: 450;
     }
 
-    .profile-header {
-      padding: 6px 18px 22px;
+    /* ========== PROFILE — estilo Instagram real + Liquid Glass ========== */
+    .profile-header-bar {
+      height: 52px;
+      padding: 0 8px;
+    }
+    .header-left { display: flex; align-items: center; }
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      gap: 2px;
+    }
+    .username-title {
+      font-size: 18px !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.4px !important;
+      background: none !important;
+      -webkit-text-fill-color: var(--text) !important;
+      color: var(--text) !important;
+    }
+    .online-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--like);
+      border-radius: 50%;
+      margin-left: 4px;
+      box-shadow: 0 0 8px var(--like-glow);
+    }
+    .threads-badge {
+      top: 2px !important;
+      right: 2px !important;
+      min-width: 16px;
+      height: 16px;
+      font-size: 9px;
+      background: var(--like);
+    }
+
+    .profile-section {
+      padding: 8px 16px 12px;
       animation: slideUp 0.5s var(--ease-out) both;
     }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .profile-top {
+    .profile-top-row {
       display: flex;
       align-items: center;
-      gap: 26px;
-      margin-bottom: 18px;
+      gap: 18px;
+      margin-bottom: 14px;
     }
 
     .profile-pic-wrap {
@@ -334,17 +408,13 @@
     }
 
     .profile-pic {
-      width: 96px;
-      height: 96px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      border: 2.5px solid rgba(255,255,255,0.12);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
-      transition: transform 0.4s var(--spring);
-    }
-
-    .profile-pic:active {
-      transform: scale(0.96);
+      border: 3px solid #000;
+      background: #1c1c1e;
+      display: block;
     }
 
     .profile-stats {
@@ -367,105 +437,138 @@
     }
 
     .stat-num {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 700;
       letter-spacing: -0.5px;
     }
 
     .stat-label {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--text-secondary);
       margin-top: 2px;
       font-weight: 450;
     }
 
     .profile-info {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .profile-name {
-      font-size: 15.5px;
-      font-weight: 650;
+      font-size: 15px;
+      font-weight: 700;
       margin-bottom: 3px;
       letter-spacing: -0.2px;
+      text-transform: uppercase;
     }
 
     .profile-bio {
       font-size: 14px;
-      line-height: 1.45;
+      line-height: 1.4;
       color: var(--text);
       white-space: pre-line;
       font-weight: 400;
     }
 
     .profile-link {
-      color: #a8d4ff;
-      font-size: 14px;
-      margin-top: 5px;
-      display: inline-block;
+      color: #e0f0ff;
+      font-size: 13.5px;
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       font-weight: 500;
-      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .profile-link::before {
+      content: '🔗';
+      font-size: 12px;
     }
 
-    .profile-link:active {
-      color: var(--accent);
+    .profile-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 520;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      backdrop-filter: blur(12px);
+    }
+    .chip:active {
+      background: rgba(255,255,255,0.14);
+      transform: scale(0.96);
+    }
+    .chip-add {
+      color: var(--text-secondary);
     }
 
     .profile-actions {
       display: flex;
       gap: 8px;
+      margin-top: 14px;
     }
 
     .btn {
       flex: 1;
-      height: 38px;
-      border-radius: 12px;
+      height: 40px;
+      border-radius: 14px;
       border: none;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 620;
       cursor: pointer;
       transition: transform 0.28s var(--spring), opacity 0.2s, box-shadow 0.25s, background 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      letter-spacing: -0.15px;
+      letter-spacing: -0.2px;
     }
 
-    .btn:active {
-      transform: scale(0.955);
-    }
+    .btn:active { transform: scale(0.95); }
 
     .btn-primary {
       background: var(--accent);
       color: white;
-      box-shadow: 0 4px 16px var(--accent-glow);
+      box-shadow: 0 4px 18px var(--accent-glow);
     }
 
     .btn-secondary {
-      background: var(--surface-2);
+      background: rgba(255,255,255,0.1);
       color: var(--text);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(24px);
     }
 
     .btn-secondary:active {
-      background: var(--surface-3);
+      background: rgba(255,255,255,0.16);
     }
 
     .btn-icon {
-      width: 38px;
-      flex: 0 0 38px;
+      width: 40px;
+      flex: 0 0 40px;
       padding: 0;
     }
 
+    /* Highlights */
     .highlights {
       display: flex;
       gap: 18px;
-      padding: 6px 18px 22px;
+      padding: 4px 18px 22px;
       overflow-x: auto;
       scrollbar-width: none;
-      animation: slideUp 0.55s var(--ease-out) 0.08s both;
+      animation: slideUp 0.6s var(--ease-out) 0.08s both;
     }
 
     .highlights::-webkit-scrollbar { display: none; }
@@ -474,31 +577,30 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       flex-shrink: 0;
       cursor: pointer;
       transition: transform 0.3s var(--spring);
     }
 
-    .highlight:active {
-      transform: scale(0.9);
-    }
+    .highlight:active { transform: scale(0.9); }
 
     .highlight-ring {
-      width: 68px;
-      height: 68px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.2);
+      border: 1.6px solid rgba(255,255,255,0.22);
       padding: 3.5px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: border-color 0.25s, box-shadow 0.25s;
+      background: rgba(255,255,255,0.04);
     }
 
     .highlight:hover .highlight-ring {
       border-color: rgba(255,255,255,0.4);
-      box-shadow: 0 4px 16px rgba(255,255,255,0.08);
+      box-shadow: 0 4px 18px rgba(255,255,255,0.1);
     }
 
     .highlight-img {
@@ -513,11 +615,11 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: var(--surface-2);
+      background: rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
+      font-size: 32px;
       color: var(--text);
       font-weight: 300;
     }
@@ -525,7 +627,7 @@
     .highlight-name {
       font-size: 12px;
       color: var(--text);
-      max-width: 72px;
+      max-width: 74px;
       text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -533,20 +635,21 @@
       font-weight: 450;
     }
 
+    /* Tabs */
     .profile-tabs {
       display: flex;
-      border-top: 1px solid rgba(255,255,255,0.07);
+      border-top: 1px solid rgba(255,255,255,0.08);
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(0,0,0,0.82);
-      backdrop-filter: blur(28px) saturate(160%);
-      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(32px) saturate(160%);
+      -webkit-backdrop-filter: blur(32px) saturate(160%);
     }
 
     .tab {
       flex: 1;
-      height: 50px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -558,24 +661,22 @@
       transition: color 0.25s;
     }
 
-    .tab.active {
-      color: var(--text);
-    }
+    .tab.active { color: var(--text); }
 
     .tab.active::after {
       content: '';
       position: absolute;
       bottom: 0;
-      left: 22%;
-      right: 22%;
-      height: 1.5px;
+      left: 24%;
+      right: 24%;
+      height: 1.6px;
       background: var(--text);
       border-radius: 1px;
       animation: tabIn 0.3s var(--spring);
     }
 
     @keyframes tabIn {
-      from { transform: scaleX(0.4); opacity: 0; }
+      from { transform: scaleX(0.35); opacity: 0; }
       to { transform: scaleX(1); opacity: 1; }
     }
 
@@ -585,10 +686,9 @@
       transition: transform 0.3s var(--spring);
     }
 
-    .tab.active svg {
-      transform: scale(1.08);
-    }
+    .tab.active svg { transform: scale(1.1); }
 
+    /* Grid */
     .posts-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -608,6 +708,12 @@
       cursor: pointer;
       overflow: hidden;
       background: #111;
+      animation: gridPop 0.5s var(--spring) both;
+    }
+
+    @keyframes gridPop {
+      from { opacity: 0; transform: scale(0.88); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .post-thumb img {
@@ -615,153 +721,87 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s var(--ease-out);
-      will-change: transform;
     }
 
-    .post-thumb:active img {
-      transform: scale(1.06);
+    .post-thumb:active img { transform: scale(1.07); }
+
+    .post-thumb.is-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      object-fit: cover;
+    }
+
+    .video-thumb {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      width: 46px;
+      height: 46px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255,255,255,0.32);
+      transition: transform 0.3s var(--spring);
+    }
+
+    .post-thumb:hover .video-thumb {
+      transform: translate(-50%, -50%) scale(1.15);
     }
 
     .post-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%);
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      gap: 14px;
+      gap: 16px;
       opacity: 0;
       transition: opacity 0.3s;
       color: white;
       font-weight: 650;
       font-size: 13.5px;
-      padding-bottom: 12px;
+      padding-bottom: 14px;
       pointer-events: none;
+      z-index: 6;
     }
 
-    .post-thumb:hover .post-overlay {
-      opacity: 1;
-    }
+    .post-thumb:hover .post-overlay { opacity: 1; }
 
     .post-overlay span {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
-    .bottom-nav {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: calc(58px + var(--safe-bottom));
-      padding-bottom: var(--safe-bottom);
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      z-index: 100;
-      transition: transform 0.4s var(--ease-out), opacity 0.3s;
-    }
-
-    .bottom-nav.hidden {
-      transform: translateY(110%);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .nav-item {
-      width: 58px;
-      height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      background: transparent;
-      color: var(--text);
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.3s var(--spring);
-    }
-
-    .nav-item:active {
-      transform: scale(0.82);
-    }
-
-    .nav-item svg {
-      width: 26px;
-      height: 26px;
-      transition: transform 0.35s var(--spring), opacity 0.2s;
-      opacity: 0.85;
-    }
-
-    .nav-item.active svg {
-      transform: scale(1.1);
-      opacity: 1;
-    }
-
-    .nav-item .badge {
-      position: absolute;
-      top: 3px;
-      right: 11px;
-      min-width: 17px;
-      height: 17px;
-      background: var(--like);
-      border-radius: 9px;
-      font-size: 10px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 4px;
-      border: 2.5px solid #0c0c0e;
-      box-shadow: 0 2px 8px var(--like-glow);
-      animation: badgePop 0.5s var(--spring);
-    }
-
-    @keyframes badgePop {
-      0% { transform: scale(0); }
-      60% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-
-    .view {
-      display: none;
-      flex-direction: column;
-      height: 100%;
-      position: absolute;
-      inset: 0;
-      animation: viewIn 0.4s var(--ease-out);
-    }
-
-    .view.active {
-      display: flex;
-    }
-
-    @keyframes viewIn {
-      from { opacity: 0; transform: translateY(12px) scale(0.985); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
+    /* ========== FEED ========== */
     .feed-post {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       animation: postIn 0.5s var(--ease-out) both;
     }
 
-    .feed-post:nth-child(1) { animation-delay: 0.05s; }
-    .feed-post:nth-child(2) { animation-delay: 0.1s; }
-    .feed-post:nth-child(3) { animation-delay: 0.15s; }
-    .feed-post:nth-child(4) { animation-delay: 0.2s; }
-    .feed-post:nth-child(5) { animation-delay: 0.25s; }
+    .feed-post:nth-child(1) { animation-delay: 0.04s; }
+    .feed-post:nth-child(2) { animation-delay: 0.09s; }
+    .feed-post:nth-child(3) { animation-delay: 0.14s; }
+    .feed-post:nth-child(4) { animation-delay: 0.19s; }
+    .feed-post:nth-child(5) { animation-delay: 0.24s; }
 
     @keyframes postIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(22px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .feed-header {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
       padding: 12px 16px;
     }
 
@@ -770,7 +810,7 @@
       height: 38px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1.5px solid rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.12);
     }
 
     .feed-user {
@@ -792,7 +832,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s var(--ease-out);
     }
 
     .feed-actions {
@@ -803,8 +842,8 @@
     }
 
     .feed-actions .icon-btn {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
     }
 
     .feed-actions .icon-btn svg {
@@ -822,7 +861,7 @@
     .feed-caption {
       padding: 5px 16px 0;
       font-size: 14px;
-      line-height: 1.4;
+      line-height: 1.42;
     }
 
     .feed-caption strong {
@@ -831,7 +870,7 @@
     }
 
     .feed-time {
-      padding: 7px 16px 14px;
+      padding: 7px 16px 16px;
       font-size: 11px;
       color: var(--text-tertiary);
       text-transform: uppercase;
@@ -846,7 +885,7 @@
       transform: translate(-50%, -50%) scale(0);
       pointer-events: none;
       z-index: 10;
-      filter: drop-shadow(0 4px 20px rgba(255,55,95,0.5));
+      filter: drop-shadow(0 4px 22px rgba(255,55,95,0.55));
     }
 
     .heart-burst.show {
@@ -855,16 +894,15 @@
 
     @keyframes heartPop {
       0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-      12% { transform: translate(-50%, -50%) scale(1.35); opacity: 1; }
-      28% { transform: translate(-50%, -50%) scale(0.92); }
-      42% { transform: translate(-50%, -50%) scale(1.12); }
+      12% { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+      28% { transform: translate(-50%, -50%) scale(0.9); }
+      42% { transform: translate(-50%, -50%) scale(1.15); }
       70% { opacity: 1; }
       100% { transform: translate(-50%, -50%) scale(1.05); opacity: 0; }
     }
 
-    .messages-list {
-      padding: 10px 0;
-    }
+    /* ========== MESSAGES ========== */
+    .messages-list { padding: 10px 0; }
 
     .msg-item {
       display: flex;
@@ -873,8 +911,8 @@
       padding: 14px 18px;
       cursor: pointer;
       transition: background 0.25s, transform 0.25s var(--spring);
-      border-radius: 16px;
-      margin: 0 8px;
+      border-radius: 18px;
+      margin: 0 10px;
     }
 
     .msg-item:active {
@@ -883,19 +921,16 @@
     }
 
     .msg-avatar {
-      width: 60px;
-      height: 60px;
+      width: 62px;
+      height: 62px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
-      border: 2px solid rgba(255,255,255,0.08);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.32);
     }
 
-    .msg-info {
-      flex: 1;
-      min-width: 0;
-    }
+    .msg-info { flex: 1; min-width: 0; }
 
     .msg-top {
       display: flex;
@@ -936,27 +971,28 @@
       background: var(--accent);
       border-radius: 50%;
       flex-shrink: 0;
-      box-shadow: 0 0 10px var(--accent-glow);
+      box-shadow: 0 0 12px var(--accent-glow);
       animation: pulse 2s ease-in-out infinite;
     }
 
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(0.9); }
+      50% { opacity: 0.65; transform: scale(0.88); }
     }
 
+    /* ========== CHAT ========== */
     .chat-header {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 8px 12px;
-      height: 58px;
+      padding: 8px 14px;
+      height: 60px;
       flex-shrink: 0;
     }
 
     .chat-back {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: none;
       background: transparent;
@@ -969,14 +1005,14 @@
     }
 
     .chat-back:active {
-      transform: scale(0.88);
+      transform: scale(0.86);
       background: var(--glass);
     }
 
     .chat-user-info {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
       flex: 1;
     }
 
@@ -985,7 +1021,7 @@
       height: 38px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1.5px solid rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.12);
     }
 
     .chat-name {
@@ -1006,16 +1042,16 @@
       padding: 18px 16px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
       -webkit-overflow-scrolling: touch;
     }
 
     .bubble {
       max-width: 78%;
-      padding: 11px 15px;
+      padding: 12px 16px;
       border-radius: 22px;
       font-size: 15.5px;
-      line-height: 1.38;
+      line-height: 1.4;
       animation: bubbleIn 0.35s var(--spring);
       word-wrap: break-word;
     }
@@ -1029,7 +1065,7 @@
       background: var(--surface-2);
       align-self: flex-start;
       border-bottom-left-radius: 6px;
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
       border: 1px solid var(--glass-border);
     }
 
@@ -1037,7 +1073,7 @@
       background: linear-gradient(135deg, #0a84ff, #0071e3);
       align-self: flex-end;
       border-bottom-right-radius: 6px;
-      box-shadow: 0 4px 16px var(--accent-glow);
+      box-shadow: 0 4px 18px var(--accent-glow);
       color: white;
     }
 
@@ -1052,7 +1088,7 @@
 
     .chat-input {
       flex: 1;
-      height: 42px;
+      height: 44px;
       border-radius: 24px;
       border: 1px solid var(--glass-border);
       background: var(--surface-2);
@@ -1061,21 +1097,19 @@
       font-size: 15.5px;
       outline: none;
       transition: border-color 0.25s, box-shadow 0.25s;
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
     }
 
     .chat-input:focus {
-      border-color: rgba(10, 132, 255, 0.4);
-      box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.12);
+      border-color: rgba(10, 132, 255, 0.45);
+      box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.14);
     }
 
-    .chat-input::placeholder {
-      color: var(--text-secondary);
-    }
+    .chat-input::placeholder { color: var(--text-secondary); }
 
     .chat-send {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: linear-gradient(135deg, #0a84ff, #0071e3);
       border: none;
@@ -1085,14 +1119,13 @@
       justify-content: center;
       cursor: pointer;
       transition: transform 0.28s var(--spring), box-shadow 0.25s;
-      box-shadow: 0 4px 14px var(--accent-glow);
+      box-shadow: 0 4px 16px var(--accent-glow);
       flex-shrink: 0;
     }
 
-    .chat-send:active {
-      transform: scale(0.88);
-    }
+    .chat-send:active { transform: scale(0.88); }
 
+    /* ========== STORY VIEWER ========== */
     .story-viewer {
       position: absolute;
       inset: 0;
@@ -1103,9 +1136,7 @@
       animation: storyOpen 0.4s var(--ease-out);
     }
 
-    .story-viewer.active {
-      display: flex;
-    }
+    .story-viewer.active { display: flex; }
 
     @keyframes storyOpen {
       from { opacity: 0; transform: scale(0.94); }
@@ -1116,7 +1147,6 @@
       display: flex;
       gap: 4px;
       padding: 14px 12px 0;
-      padding-top: calc(14px + var(--safe-top));
       z-index: 10;
     }
 
@@ -1137,12 +1167,35 @@
     }
 
     .story-bar.active .story-bar-fill {
-      animation: progress 5s linear forwards;
+      width: 0%;
+      animation: progress var(--story-duration, 5s) linear forwards;
     }
 
     @keyframes progress {
       from { width: 0%; }
       to { width: 100%; }
+    }
+
+    /* Loading spinner para vídeos en stories */
+    .story-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      z-index: 8;
+    }
+    .story-loading .spinner {
+      width: 42px;
+      height: 42px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .story-top {
@@ -1158,7 +1211,7 @@
       height: 34px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1.5px solid rgba(255,255,255,0.3);
+      border: 1.5px solid rgba(255,255,255,0.35);
     }
 
     .story-user-name {
@@ -1169,8 +1222,8 @@
     }
 
     .story-close {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border: none;
       background: transparent;
       color: white;
@@ -1183,9 +1236,7 @@
       text-shadow: 0 1px 4px rgba(0,0,0,0.5);
     }
 
-    .story-close:active {
-      transform: scale(0.85);
-    }
+    .story-close:active { transform: scale(0.85); }
 
     .story-media {
       flex: 1;
@@ -1219,6 +1270,7 @@
     .story-nav-left { left: 0; }
     .story-nav-right { right: 0; }
 
+    /* ========== POST MODAL ========== */
     .post-modal {
       position: absolute;
       inset: 0;
@@ -1227,12 +1279,10 @@
       display: none;
       flex-direction: column;
       animation: modalIn 0.4s var(--ease-out);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
     }
 
-    .post-modal.active {
-      display: flex;
-    }
+    .post-modal.active { display: flex; }
 
     @keyframes modalIn {
       from { opacity: 0; transform: translateY(40px) scale(0.97); }
@@ -1244,13 +1294,12 @@
       align-items: center;
       gap: 12px;
       padding: 12px 16px;
-      padding-top: calc(12px + var(--safe-top));
       flex-shrink: 0;
     }
 
     .post-modal-close {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border: none;
       background: transparent;
       color: white;
@@ -1259,9 +1308,7 @@
       transition: transform 0.25s var(--spring);
     }
 
-    .post-modal-close:active {
-      transform: scale(0.85);
-    }
+    .post-modal-close:active { transform: scale(0.85); }
 
     .post-modal-img {
       width: 100%;
@@ -1311,6 +1358,97 @@
       100% { transform: scale(1); }
     }
 
+    /* ========== BOTTOM NAV ========== */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(60px + var(--safe-bottom));
+      padding-bottom: var(--safe-bottom);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 100;
+      transition: transform 0.4s var(--ease-out), opacity 0.3s;
+    }
+
+    .bottom-nav.hidden {
+      transform: translateY(110%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-item {
+      width: 58px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s var(--spring);
+    }
+
+    .nav-item:active { transform: scale(0.82); }
+
+    .nav-item svg {
+      width: 26px;
+      height: 26px;
+      transition: transform 0.35s var(--spring), opacity 0.2s;
+      opacity: 0.85;
+    }
+
+    .nav-item.active svg {
+      transform: scale(1.12);
+      opacity: 1;
+    }
+
+    .nav-item .badge {
+      position: absolute;
+      top: 4px;
+      right: 10px;
+      min-width: 17px;
+      height: 17px;
+      background: var(--like);
+      border-radius: 9px;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      border: 2.5px solid #0c0c0e;
+      box-shadow: 0 2px 10px var(--like-glow);
+      animation: badgePop 0.5s var(--spring);
+    }
+
+    @keyframes badgePop {
+      0% { transform: scale(0); }
+      60% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* ========== VIEWS ========== */
+    .view {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      animation: viewIn 0.4s var(--ease-out);
+    }
+
+    .view.active { display: flex; }
+
+    @keyframes viewIn {
+      from { opacity: 0; transform: translateY(14px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .empty-state {
       display: flex;
       flex-direction: column;
@@ -1343,21 +1481,305 @@
 
     .hidden { display: none !important; }
 
-    ::selection {
-      background: rgba(10, 132, 255, 0.35);
+    ::selection { background: rgba(10, 132, 255, 0.35); }
+
+    img { background: #141414; }
+
+    /* Feed video fix */
+    .feed-video {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
     }
 
-    img {
-      background: #141414;
+    /* ========== ANIMACIONES EXTRA ========== */
+
+    /* Entrada escalonada del grid */
+    .post-thumb:nth-child(1) { animation-delay: 0.02s; }
+    .post-thumb:nth-child(2) { animation-delay: 0.06s; }
+    .post-thumb:nth-child(3) { animation-delay: 0.10s; }
+    .post-thumb:nth-child(4) { animation-delay: 0.14s; }
+    .post-thumb:nth-child(5) { animation-delay: 0.18s; }
+    .post-thumb:nth-child(6) { animation-delay: 0.22s; }
+    .post-thumb:nth-child(7) { animation-delay: 0.26s; }
+    .post-thumb:nth-child(8) { animation-delay: 0.30s; }
+    .post-thumb:nth-child(9) { animation-delay: 0.34s; }
+    .post-thumb:nth-child(n+10) { animation-delay: 0.38s; }
+
+    /* Shimmer sutil en el perfil */
+    .profile-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .profile-section::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      animation: shimmer 4.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+    @keyframes shimmer {
+      0% { left: -100%; }
+      40%, 100% { left: 160%; }
+    }
+
+    /* Bounce en botones */
+    .btn:active, .chip:active, .nav-item:active, .icon-btn:active {
+      transform: scale(0.88);
+    }
+
+    /* Anillo de historia propia pulsante */
+    .story-ring.own {
+      animation: ringPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes ringPulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(10, 132, 255, 0.4); }
+      50% { box-shadow: 0 4px 28px rgba(10, 132, 255, 0.7), 0 0 0 5px rgba(10,132,255,0.12); }
+    }
+
+    /* Highlight lift */
+    .highlight:hover .highlight-ring {
+      transform: translateY(-5px) scale(1.06);
+      transition: transform 0.35s var(--spring), border-color 0.25s, box-shadow 0.25s;
+    }
+
+    /* Like bounce mejorado */
+    @keyframes likeBounce {
+      0% { transform: scale(1); }
+      20% { transform: scale(1.45); }
+      40% { transform: scale(0.85); }
+      60% { transform: scale(1.18); }
+      80% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    /* Online dot pulse */
+    .online-dot {
+      animation: onlinePulse 1.8s ease-in-out infinite;
+    }
+    @keyframes onlinePulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--like-glow); }
+      50% { opacity: 0.55; box-shadow: 0 0 16px var(--like-glow); }
+    }
+
+    /* Chat bubbles desde lados */
+    .bubble.me {
+      animation: bubbleMe 0.4s var(--spring);
+    }
+    .bubble.them {
+      animation: bubbleThem 0.4s var(--spring);
+    }
+    @keyframes bubbleMe {
+      from { opacity: 0; transform: translateX(28px) scale(0.88); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes bubbleThem {
+      from { opacity: 0; transform: translateX(-28px) scale(0.88); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    /* Stats números pop */
+    .stat-num {
+      animation: numPop 0.55s var(--spring) both;
+    }
+    .stat:nth-child(1) .stat-num { animation-delay: 0.08s; }
+    .stat:nth-child(2) .stat-num { animation-delay: 0.16s; }
+    .stat:nth-child(3) .stat-num { animation-delay: 0.24s; }
+    @keyframes numPop {
+      from { opacity: 0; transform: scale(0.4) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Nav activo con glow */
+    .nav-item.active svg {
+      filter: drop-shadow(0 0 7px rgba(255,255,255,0.4));
+      transition: transform 0.35s var(--spring), opacity 0.2s, filter 0.3s;
+    }
+
+    /* Imágenes fade in */
+    .post-thumb img, .feed-img, .profile-pic, .highlight-img, .story-avatar {
+      animation: imgFade 0.55s var(--ease-out) both;
+    }
+    @keyframes imgFade {
+      from { opacity: 0; transform: scale(1.05); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Mensajes lista entrada */
+    .msg-item {
+      animation: msgIn 0.4s var(--ease-out) both;
+    }
+    .msg-item:nth-child(1) { animation-delay: 0.05s; }
+    .msg-item:nth-child(2) { animation-delay: 0.1s; }
+    .msg-item:nth-child(3) { animation-delay: 0.15s; }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateX(-16px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ========== LOGIN SCREEN ========== */
+    .login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at 50% 20%, #1a1a2e 0%, #050505 70%);
+      animation: loginFade 0.5s ease both;
+    }
+    .login-screen.hide {
+      animation: loginOut 0.5s var(--ease-out) forwards;
+      pointer-events: none;
+    }
+    @keyframes loginFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes loginOut {
+      to { opacity: 0; transform: scale(1.05); }
+    }
+    .login-card {
+      width: 90%;
+      max-width: 360px;
+      padding: 36px 28px 32px;
+      border-radius: 24px;
+      background: rgba(22, 22, 26, 0.85);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 30px 80px rgba(0,0,0,0.5);
+      text-align: center;
+      animation: cardUp 0.6s var(--spring) both;
+    }
+    @keyframes cardUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .login-logo {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      background: linear-gradient(135deg, #fff 0%, #c8c8d0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .login-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+    .login-field {
+      width: 100%;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      padding: 0 16px;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .login-field:focus {
+      border-color: rgba(10, 132, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15);
+    }
+    .login-field::placeholder { color: var(--text-tertiary); }
+    .login-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #0a84ff, #0071e3);
+      color: white;
+      font-size: 15.5px;
+      font-weight: 650;
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 6px 24px rgba(10, 132, 255, 0.4);
+      transition: transform 0.28s var(--spring), box-shadow 0.25s;
+    }
+    .login-btn:active { transform: scale(0.96); }
+    .login-error {
+      color: var(--like);
+      font-size: 13px;
+      margin-top: 12px;
+      min-height: 18px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .login-error.show { opacity: 1; }
+    .login-hint {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* Music control */
+    .music-btn {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      z-index: 200;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(12px);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.25s var(--spring);
+    }
+    .music-btn:active { transform: scale(0.88); }
+    .music-btn.playing svg { animation: musicSpin 3s linear infinite; }
+    @keyframes musicSpin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="app-shell">
+  <!-- LOGIN -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">Instagram</div>
+      <div class="login-sub">Liquid Glass · Acceso privado</div>
+      <input type="text" class="login-field" id="login-user" placeholder="Usuario" value="Saenz_rivas" autocomplete="username">
+      <input type="password" class="login-field" id="login-pass" placeholder="Contraseña" autocomplete="current-password">
+      <button class="login-btn" onclick="doLogin()">Entrar</button>
+      <div class="login-error" id="login-error">Usuario o contraseña incorrectos</div>
+      <div class="login-hint">Usuario: Saenz_rivas</div>
+    </div>
+  </div>
+
+  <!-- Audio (se activa al iniciar sesión) -->
+  <audio id="bg-music" loop preload="auto">
+    <!-- Pega aquí el ID del MP3 cuando lo tengas -->
+    <source src="https://docs.google.com/uc?export=download&id=1L1_HGKlsbvTF9MSNZDXNkStV6aPCZDI5" type="audio/mpeg">
+  </audio>
+
+  <div class="app-shell" id="app-shell" style="visibility:hidden">
     <div class="phone" id="phone">
 
-      <!-- PROFILE VIEW (default) -->
-      <div class="view active" id="view-profile">
+      <!-- Botón música (mute/unmute) -->
+      <button class="music-btn" id="music-btn" onclick="toggleMusic()" title="Música">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </button>
+
+      <!-- ========== PROFILE VIEW (estilo Instagram real + Liquid Glass) ========== -->
+      <div class="view" id="view-profile">
         <div class="status-bar">
           <span class="time" id="clock">9:41</span>
           <div class="status-icons">
@@ -1366,11 +1788,23 @@
           </div>
         </div>
 
-        <div class="header">
-          <div class="header-title">tu_usuario</div>
-          <div class="header-actions">
-            <button class="icon-btn" title="Crear">
+        <!-- Header estilo Instagram real -->
+        <div class="header profile-header-bar">
+          <div class="header-left">
+            <button class="icon-btn" onclick="openCreatePost()" title="Crear">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <div class="header-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.7;margin-right:4px"><path d="M12 1C8.14 1 5 4.14 5 8v2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V8c0-3.86-3.14-7-7-7zm0 2c2.76 0 5 2.24 5 5v2H7V8c0-2.76 2.24-5 5-5z"/></svg>
+            <span class="header-title username-title">rivas_saenz</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.6;margin-left:2px"><path d="M7 10l5 5 5-5z"/></svg>
+            <span class="online-dot"></span>
+          </div>
+          <div class="header-actions">
+            <button class="icon-btn" style="position:relative">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 1.5"/><path d="M8 4.5c1.5-1 3.5-1.5 5.5-1.5s4 .5 5.5 1.5"/></svg>
+              <span class="badge threads-badge">5</span>
             </button>
             <button class="icon-btn" title="Menú">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -1379,111 +1813,110 @@
         </div>
 
         <div class="content" id="profile-content">
-          <div class="stories-row" id="stories-row">
-            <div class="story-item" data-story="0">
-              <div class="story-ring own">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G" alt="Tu historia">
-                <div class="story-add">+</div>
-              </div>
-              <span class="story-name">Tu historia</span>
-            </div>
-            <div class="story-item" data-story="1">
-              <div class="story-ring">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1RionuvB52Th_BMMrQUoLsh5FFyywsekr" alt="">
-              </div>
-              <span class="story-name">Amor ❤️</span>
-            </div>
-            <div class="story-item" data-story="2">
-              <div class="story-ring">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo" alt="">
-              </div>
-              <span class="story-name">familia</span>
-            </div>
-            <div class="story-item" data-story="3">
-              <div class="story-ring seen">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1Qag0klaAchGBAxGZjqgprL_frp_Ub85d" alt="">
-              </div>
-              <span class="story-name">playa</span>
-            </div>
-            <div class="story-item" data-story="4">
-              <div class="story-ring">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou" alt="">
-              </div>
-              <span class="story-name">noche</span>
-            </div>
-          </div>
-
-          <div class="profile-header">
-            <div class="profile-top">
+          <!-- Profile info (layout Instagram real) -->
+          <div class="profile-section">
+            <div class="profile-top-row">
               <div class="profile-pic-wrap">
-                <img class="profile-pic" src="https://drive.google.com/uc?export=view&id=1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G" alt="Perfil">
+                <div class="story-ring own" style="width:92px;height:92px;padding:2.5px">
+                  <img class="profile-pic" src="https://lh3.googleusercontent.com/d/1XxgLwDNh30z9aRDGJRo5edaF0TqMAlrJ" alt="Perfil" onerror="this.src='https://picsum.photos/seed/profile/200'" style="border-width:3px">
+                </div>
+                <div class="story-add" style="bottom:2px;right:2px">+</div>
               </div>
               <div class="profile-stats">
                 <div class="stat">
-                  <div class="stat-num">24</div>
+                  <div class="stat-num">41</div>
                   <div class="stat-label">publicaciones</div>
                 </div>
                 <div class="stat">
-                  <div class="stat-num">1.2K</div>
+                  <div class="stat-num">126</div>
                   <div class="stat-label">seguidores</div>
                 </div>
                 <div class="stat">
-                  <div class="stat-num">348</div>
+                  <div class="stat-num">140</div>
                   <div class="stat-label">seguidos</div>
                 </div>
               </div>
             </div>
 
             <div class="profile-info">
-              <div class="profile-name">Tu Nombre</div>
-              <div class="profile-bio">🚀 Desarrollador web & diseño UI
-📚 Proyecto educativo · Instagram iOS style
-📍 Ciudad · Disponible para colaborar</div>
-              <a class="profile-link" href="#">linktr.ee/tuusuario</a>
+              <div class="profile-name">RIVAS SÁENZ</div>
+              <div class="profile-bio">MI NIÑA NAHOMI DESIREE
+21/10/24 💗</div>
+              <a class="profile-link" href="https://saenzrivas2110.github.io/NETFLIX-/" target="_blank">saenzrivas2110.github.io/NETFLIX-/</a>
+            </div>
+
+            <!-- Chips extra (Threads, música, Facebook) -->
+            <div class="profile-chips">
+              <button class="chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm0 8c-2.33 0-7 1.17-7 3.5V19h14v-1.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                rivas_saenz
+              </button>
+              <button class="chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                BESAME · Risa Express
+              </button>
+            </div>
+            <div class="profile-chips" style="margin-top:6px">
+              <button class="chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.56-4.7 1.32 0 2.7.24 2.7.24v2.97h-1.52c-1.5 0-1.96.93-1.96 1.89v2.26h3.34l-.53 3.49h-2.81V24C19.61 23.1 24 18.1 24 12.07"/></svg>
+                Ruben Rivas
+              </button>
+              <button class="chip chip-add">+ Agregar</button>
             </div>
 
             <div class="profile-actions">
-              <button class="btn btn-secondary">Editar perfil</button>
-              <button class="btn btn-secondary">Compartir perfil</button>
-              <button class="btn btn-secondary btn-icon">
+              <button class="btn btn-secondary" onclick="openEditProfile()">Editar perfil</button>
+              <button class="btn btn-secondary" onclick="shareProfile()">Compartir perfil</button>
+              <button class="btn btn-secondary btn-icon" onclick="alert('¡Invitación enviada! 👥')">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
               </button>
             </div>
           </div>
 
+          <!-- Highlights (Destacadas) -->
           <div class="highlights">
-            <div class="highlight">
+            <div class="highlight" onclick="alert('Crear nueva historia destacada')">
               <div class="highlight-ring">
                 <div class="highlight-add">+</div>
               </div>
               <span class="highlight-name">Nuevo</span>
             </div>
-            <div class="highlight">
+            <div class="highlight" onclick="openStory(0)">
               <div class="highlight-ring">
-                <img class="highlight-img" src="https://drive.google.com/uc?export=view&id=1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo" alt="">
+                <img class="highlight-img" src="https://lh3.googleusercontent.com/d/1XxgLwDNh30z9aRDGJRo5edaF0TqMAlrJ" alt="" onerror="this.src='https://picsum.photos/seed/h1/100'">
               </div>
-              <span class="highlight-name">Familia</span>
+              <span class="highlight-name">Rivass</span>
             </div>
-            <div class="highlight">
+            <div class="highlight" onclick="openStory(2)">
               <div class="highlight-ring">
-                <img class="highlight-img" src="https://drive.google.com/uc?export=view&id=1Qag0klaAchGBAxGZjqgprL_frp_Ub85d" alt="">
+                <img class="highlight-img" src="https://lh3.googleusercontent.com/d/1y_p2Y_qfcnRX8sFv3RvdyHunVV5IbY0J" alt="" onerror="this.src='https://picsum.photos/seed/h2/100'">
               </div>
-              <span class="highlight-name">Playa</span>
+              <span class="highlight-name">hija 💗</span>
             </div>
-            <div class="highlight">
+            <div class="highlight" onclick="openStory(3)">
               <div class="highlight-ring">
-                <img class="highlight-img" src="https://drive.google.com/uc?export=view&id=1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou" alt="">
+                <img class="highlight-img" src="https://lh3.googleusercontent.com/d/1Pt33OGmGrVW9C_GEb2C3E1-o8-29POKW" alt="" onerror="this.src='https://picsum.photos/seed/h3/100'">
               </div>
-              <span class="highlight-name">Noche</span>
+              <span class="highlight-name">Destacada</span>
+            </div>
+            <div class="highlight" onclick="openStory(4)">
+              <div class="highlight-ring">
+                <img class="highlight-img" src="https://lh3.googleusercontent.com/d/1wfBMOQSseU6rFGuizTHFQX6vtS-NRzK1" alt="" onerror="this.src='https://picsum.photos/seed/h4/100'">
+              </div>
+              <span class="highlight-name">Destacada</span>
             </div>
           </div>
 
+          <!-- Tabs estilo Instagram -->
           <div class="profile-tabs">
             <button class="tab active" data-tab="posts">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z"/></svg>
             </button>
-            <button class="tab" data-tab="reels" disabled style="opacity:0.25;pointer-events:none">
+            <button class="tab" data-tab="reels">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M10 8l6 4-6 4V8z"/></svg>
+            </button>
+            <button class="tab" data-tab="reposts">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
             </button>
             <button class="tab" data-tab="tagged">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
@@ -1494,8 +1927,8 @@
         </div>
       </div>
 
-      <!-- HOME / FEED VIEW -->
-      <div class="view" id="view-home">
+      <!-- ========== HOME / FEED ========== -->
+      <div class="view active" id="view-home">
         <div class="status-bar">
           <span class="time">9:41</span>
           <div class="status-icons">
@@ -1517,31 +1950,31 @@
         </div>
 
         <div class="content" id="feed-content">
-          <div class="stories-row" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div class="stories-row" style="border-bottom: 1px solid rgba(255,255,255,0.06);">
             <div class="story-item" data-story="0">
               <div class="story-ring own">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G" alt="">
+                <img class="story-avatar" src="https://lh3.googleusercontent.com/d/1XxgLwDNh30z9aRDGJRo5edaF0TqMAlrJ" alt="" onerror="this.src='https://picsum.photos/seed/me/150'">
                 <div class="story-add">+</div>
               </div>
               <span class="story-name">Tu historia</span>
             </div>
             <div class="story-item" data-story="1">
               <div class="story-ring">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1RionuvB52Th_BMMrQUoLsh5FFyywsekr" alt="">
+                <img class="story-avatar" src="https://lh3.googleusercontent.com/d/1y_p2Y_qfcnRX8sFv3RvdyHunVV5IbY0J" alt="" onerror="this.src='https://picsum.photos/seed/amor/150'">
               </div>
-              <span class="story-name">Amor ❤️</span>
+              <span class="story-name">Nahomi 💗</span>
             </div>
             <div class="story-item" data-story="2">
               <div class="story-ring">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo" alt="">
+                <img class="story-avatar" src="https://lh3.googleusercontent.com/d/1Pt33OGmGrVW9C_GEb2C3E1-o8-29POKW" alt="" onerror="this.src='https://picsum.photos/seed/fam/150'">
               </div>
               <span class="story-name">familia</span>
             </div>
             <div class="story-item" data-story="3">
               <div class="story-ring seen">
-                <img class="story-avatar" src="https://drive.google.com/uc?export=view&id=1Qag0klaAchGBAxGZjqgprL_frp_Ub85d" alt="">
+                <img class="story-avatar" src="https://lh3.googleusercontent.com/d/1wfBMOQSseU6rFGuizTHFQX6vtS-NRzK1" alt="" onerror="this.src='https://picsum.photos/seed/playa/150'">
               </div>
-              <span class="story-name">playa</span>
+              <span class="story-name">hija</span>
             </div>
           </div>
 
@@ -1549,7 +1982,7 @@
         </div>
       </div>
 
-      <!-- MESSAGES VIEW -->
+      <!-- ========== MESSAGES ========== -->
       <div class="view" id="view-messages">
         <div class="status-bar">
           <span class="time">9:41</span>
@@ -1573,7 +2006,7 @@
         </div>
       </div>
 
-      <!-- CHAT VIEW -->
+      <!-- ========== CHAT ========== -->
       <div class="view" id="view-chat">
         <div class="status-bar">
           <span class="time">9:41</span>
@@ -1609,7 +2042,7 @@
         </div>
       </div>
 
-      <!-- SEARCH -->
+      <!-- ========== SEARCH ========== -->
       <div class="view" id="view-search">
         <div class="status-bar">
           <span class="time">9:41</span>
@@ -1630,27 +2063,27 @@
         </div>
       </div>
 
-      <!-- BOTTOM NAV -->
+      <!-- ========== BOTTOM NAV ========== -->
       <nav class="bottom-nav glass-nav" id="bottom-nav">
-        <button class="nav-item" data-view="home" onclick="switchView('home')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <button class="nav-item active" data-view="home" onclick="switchView('home')">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22" fill="none"/></svg>
         </button>
         <button class="nav-item" data-view="search" onclick="switchView('search')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </button>
-        <button class="nav-item" data-view="create">
+        <button class="nav-item" data-view="create" onclick="openCreatePost()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
         </button>
         <button class="nav-item" data-view="messages" onclick="switchView('messages')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           <span class="badge">1</span>
         </button>
-        <button class="nav-item active" data-view="profile" onclick="switchView('profile')">
-          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <button class="nav-item" data-view="profile" onclick="switchView('profile')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
         </button>
       </nav>
 
-      <!-- STORY VIEWER -->
+      <!-- ========== STORY VIEWER ========== -->
       <div class="story-viewer" id="story-viewer">
         <div class="story-progress" id="story-progress"></div>
         <div class="story-top">
@@ -1661,17 +2094,17 @@
         <div class="story-media" id="story-media">
           <div class="story-nav-left" onclick="prevStory()"></div>
           <div class="story-nav-right" onclick="nextStory()"></div>
-          <img id="story-img" src="" alt="">
+          <div id="story-media-content" style="width:100%;height:100%;"></div>
         </div>
       </div>
 
-      <!-- POST MODAL -->
+      <!-- ========== POST MODAL ========== -->
       <div class="post-modal" id="post-modal">
         <div class="post-modal-header">
           <button class="post-modal-close" onclick="closePost()">×</button>
           <span style="font-weight:650;font-size:16.5px;letter-spacing:-0.3px;">Publicación</span>
         </div>
-        <img class="post-modal-img" id="post-modal-img" src="" alt="">
+        <div id="post-modal-media"></div>
         <div class="post-modal-actions">
           <button class="icon-btn like-btn" onclick="toggleLike(this)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -1691,33 +2124,120 @@
   </div>
 
   <script>
-    // Enlaces directos de tu Google Drive
-    const drive = (id) => `https://drive.google.com/uc?export=view&id=${id}`;
+    // Helpers de imágenes (con fallback)
+    const drive = (id) => `https://lh3.googleusercontent.com/d/${id}`;
+    const driveVideo = (id) => `https://drive.google.com/file/d/${id}/preview`;
+    const fallback = (seed, size = 400) => `https://picsum.photos/seed/${seed}/${size}`;
 
-    const PROFILE_PIC = drive('1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G'); // Selfie principal
-    const AMOR_AVATAR = drive('1RionuvB52Th_BMMrQUoLsh5FFyywsekr'); // Para el chat Amor
-
-    const postsData = [
-      { img: drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo'), likes: 1284, caption: 'Los mejores momentos ❤️ #familia' },
-      { img: drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d'), likes: 892, caption: 'Día de playa con los panas 🏖️' },
-      { img: drive('1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G'), likes: 2103, caption: 'Selfie del día ✨' },
-      { img: drive('1RionuvB52Th_BMMrQUoLsh5FFyywsekr'), likes: 756, caption: 'Modo filtro activado 😈' },
-      { img: drive('1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou'), likes: 1456, caption: 'Vibes de noche 💫' },
-      { img: drive('1ejWOzdYBk0m00OI5c1i9YynD6XaJ1QAw'), likes: 634, caption: 'Momento random' },
-      { img: drive('1QPc0hDcSeUPSYuz9sY2SN0gigLxhQp9p'), likes: 987, caption: 'Otra más 📸' },
-      { img: drive('1jobHBVpLQS8vvo-fHoOYiAA-NHkCXcOW'), likes: 1720, caption: 'Buenos recuerdos' },
-      { img: drive('1x-nruoP8OyY3KUih-3IBfjIPuNnjU9cq'), likes: 543, caption: 'Simple y real' },
+    // Todas las fotos de Google Drive (antiguas + nuevas)
+    const NEW_PICS = [
+      // Antiguas
+      '1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G',
+      '1RionuvB52Th_BMMrQUoLsh5FFyywsekr',
+      '1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo',
+      '1Qag0klaAchGBAxGZjqgprL_frp_Ub85d',
+      '1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou',
+      '1ejWOzdYBk0m00OI5c1i9YynD6XaJ1QAw',
+      '1QPc0hDcSeUPSYuz9sY2SN0gigLxhQp9p',
+      // Nuevas
+      '1XxgLwDNh30z9aRDGJRo5edaF0TqMAlrJ',
+      '1y_p2Y_qfcnRX8sFv3RvdyHunVV5IbY0J',
+      '1Pt33OGmGrVW9C_GEb2C3E1-o8-29POKW',
+      '1wfBMOQSseU6rFGuizTHFQX6vtS-NRzK1',
+      '1IiFcIM3Yx-QtN6pxcdOEmc4DoxnukyV0',
+      '1C-cnUAlaxnhiCZMEbXKUZ66HiV2e71sj',
+      '1fed_x99R-PNWgyUWFbguOg28aLFAFg72',
+      '1hLFJ8-pIQO2IklM0hANILN46aTDgVpV6',
+      '1_QMxoWi27xDAoWz7fTSB2yIAyQj6N3iF',
+      '10Jt1mihxkN6fmjEZPV7IqlNTUge-ID_o',
+      '1fOfFQ6ofTniEwbNGAyCVotS_pZr9ujuq',
+      '1lcdxP8z9-yPlosqsCgCjZBxWpWHqUPfy',
+      '1DIPbClSfGDJIxy6H9PP_zube4LTuiGas',
+      '1DQvvrsuHbxQhp3glnH30HGQmtCTbN7BG',
+      '1-uu2JLHNgJMHZZ5oSrXbFfRCHQw40tEq',
+      '1xW0R3TtaOp7zEFUNuTmCmdF3B1tzl21s',
+      '1NtxoHrLBhoMecBFaj5pbviwRL5w0YYuM',
+      '1aG3RE1A526Apm-0q3Eoc4moKkwnXP3M7',
+      '1V930cU1pr2MFxF_IFLrEBsewZt7vNuiX',
+      '17c66ZEKiIdKOAJDfpKePlW823hSJMr4T',
+      '1JD5LF3ONYpeAzBZGUaBRJg0ee2wuiO5-',
+      '1XJk-bZXZRTMR9vxJaRb4yIgnr2FOK0tW',
+      '1E2nbwE5sGDRsfGBbUthP99Gjrf3amQjh',
+      '15RdBJcBDC0Ar8RdGqoyBa7uk8jBIhR1q',
+      '1SCPt7gDpCI63GiBNcXs_6AafraeqmGyH',
+      '16aSsjw6t5HqLNDbRsV-nGaB9tS_cXUOp',
+      '1fmnXyRrNdG1Szh6RO9NP1qLxs927W384',
+      '1Xw4VMuTI9UVLQo1u92ivtsL-aBGj-vnq',
+      '1wR2DuhZ54c-ldj7MC_bJRTkgJFSYrO6K',
+      '1ylWI2nuaImbTNDlvq1wwcCr92fNkbclv',
+      '15WWvt7PoNNckcENn6qV9ufrsvfPaw_US',
+      '1dvdbVMYL0z_sQcgJ-xfwV0t2SWTOSZWD',
+      '1TXM9eODQ0wses0ybXOcEmTQBphaHve0s',
+      '1mOu3UH6OL4NC_J3sDusHRUX2pUzD-ava'
     ];
+
+    // Vídeos (antiguos + nuevos)
+    const VIDEO_IDS = [
+      '1FIFZvgO6QBa28SSebLMYTdsDWAjZl39O',
+      '1djY8hZT6sy_x2pMjxzd5ee6luHCfLpc-',
+      '1Xw4VMuTI9UVLQo1u92ivtsL-aBGj-vnq',
+      '1wR2DuhZ54c-ldj7MC_bJRTkgJFSYrO6K'
+    ];
+
+    const PROFILE_PIC = drive(NEW_PICS[0]);
+    const AMOR_AVATAR = drive(NEW_PICS[1]);
+
+    const captions = [
+      'Mi niña Nahomi 💗 #familia',
+      'Los mejores momentos ❤️',
+      'Mi princesa ✨',
+      'Momentos que valen oro 💕',
+      'Siempre juntos 🥰',
+      'Mi todo 💗',
+      'Días felices ☀️',
+      'Amor infinito ❤️',
+      'Sonrisas que iluminan 😊',
+      'Mi razón de ser 💖',
+      'Pequeños instantes 🌟',
+      'Familia es todo 👨‍👩‍👧',
+      'Creciendo juntos 🌱',
+      'Besitos y abrazos 😘',
+      'Mi mayor tesoro 💎',
+      'Días de playa 🏖️',
+      'Aventuras en familia 🚗',
+      'Sonrisa perfecta 😍',
+      'Momento especial 📸',
+      'Amor de papá 💪',
+      'Dulces sueños 😴',
+      'Mi niña hermosa 🌷',
+      'Recuerdos eternos 🕊️',
+      'Felicidad pura 🌈',
+      'Juntos siempre 🤝',
+      'Mi mundo completo 🌍',
+      'Con todo mi amor 💘'
+    ];
+
+    // Posts con todas tus fotos + vídeos
+    const postsData = NEW_PICS.map((id, i) => {
+      const isVideo = VIDEO_IDS.includes(id);
+      return {
+        type: isVideo ? 'video' : 'image',
+        src: isVideo ? driveVideo(id) : drive(id),
+        likes: Math.floor(Math.random() * 1800) + 200,
+        caption: isVideo ? 'Vídeo especial 🎬💗' : captions[i % captions.length],
+        seed: 'p' + i
+      };
+    });
 
     const storiesData = [
-      { name: 'Tu historia', avatar: PROFILE_PIC, media: drive('1qEczrLnGlUTopGhCuNtB4pWD-0yK9o7G') },
-      { name: 'Amor ❤️', avatar: AMOR_AVATAR, media: drive('1RionuvB52Th_BMMrQUoLsh5FFyywsekr') },
-      { name: 'familia', avatar: drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo'), media: drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo') },
-      { name: 'playa', avatar: drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d'), media: drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d') },
-      { name: 'noche', avatar: drive('1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou'), media: drive('1TNtNwy0WqhZ1cOBteKVLdGffVVlBdTou') },
+      { name: 'Tu historia', avatar: PROFILE_PIC, media: drive(NEW_PICS[0]), type: 'image', seed: 's0' },
+      { name: 'Nahomi 💗', avatar: drive(NEW_PICS[1]), media: drive(NEW_PICS[1]), type: 'image', seed: 's1' },
+      { name: 'familia', avatar: drive(NEW_PICS[2]), media: drive(NEW_PICS[2]), type: 'image', seed: 's2' },
+      { name: 'hija', avatar: drive(NEW_PICS[3]), media: drive(NEW_PICS[3]), type: 'image', seed: 's3' },
+      { name: 'Vídeo', avatar: drive(NEW_PICS[0]), media: driveVideo(VIDEO_IDS[0]), type: 'video', seed: 's4' },
+      { name: 'Vídeo 2', avatar: drive(NEW_PICS[1]), media: driveVideo(VIDEO_IDS[1]), type: 'video', seed: 's5' },
     ];
 
-    // Solo un chat: Amor ❤️
     const messagesData = [
       {
         name: 'Amor ❤️',
@@ -1737,6 +2257,66 @@
         { from: 'them', text: 'Te extraño mucho 💕' },
       ]
     };
+
+    // ========== LOGIN + MÚSICA ==========
+    const VALID_USER = 'Saenz_rivas';
+    const VALID_PASS = 'Teisi0909';
+    // Cuando me pases el enlace del MP3, cambia este ID:
+    const MUSIC_ID = '1L1_HGKlsbvTF9MSNZDXNkStV6aPCZDI5';
+
+    function doLogin() {
+      const user = document.getElementById('login-user').value.trim();
+      const pass = document.getElementById('login-pass').value;
+      const err = document.getElementById('login-error');
+
+      if (user === VALID_USER && pass === VALID_PASS) {
+        err.classList.remove('show');
+        const login = document.getElementById('login-screen');
+        login.classList.add('hide');
+        document.getElementById('app-shell').style.visibility = 'visible';
+
+        setTimeout(() => {
+          login.style.display = 'none';
+          startMusic();
+        }, 500);
+      } else {
+        err.classList.add('show');
+        document.getElementById('login-pass').value = '';
+        document.getElementById('login-pass').focus();
+      }
+    }
+
+    function startMusic() {
+      const audio = document.getElementById('bg-music');
+      // Si el ID aún es placeholder, no intenta cargar
+      audio.src = `https://docs.google.com/uc?export=download&id=${MUSIC_ID}`;
+      audio.volume = 0.55;
+      audio.play().catch(() => {
+        // Algunos navegadores bloquean autoplay; el botón de música sirve de respaldo
+        console.log('Autoplay bloqueado, usa el botón de música');
+      });
+      const btn = document.getElementById('music-btn');
+      if (btn) btn.classList.add('playing');
+    }
+
+    function toggleMusic() {
+      const audio = document.getElementById('bg-music');
+      const btn = document.getElementById('music-btn');
+      if (audio.paused) {
+        audio.play();
+        btn.classList.add('playing');
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+      }
+    }
+
+    // Enter en el campo de contraseña
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && document.getElementById('login-screen') && !document.getElementById('login-screen').classList.contains('hide')) {
+        doLogin();
+      }
+    });
 
     function init() {
       renderPostsGrid();
@@ -1782,14 +2362,22 @@
 
     function renderPostsGrid() {
       const grid = document.getElementById('posts-grid');
-      grid.innerHTML = postsData.map((p, i) => `
-        <div class="post-thumb" onclick="openPost(${i})" style="animation-delay: ${i * 0.04}s">
-          <img src="${p.img}" alt="Post ${i+1}" loading="lazy">
+      grid.innerHTML = postsData.map((p, i) => {
+        const isVideo = p.type === 'video';
+        const imgSrc = p.type === 'image' ? p.src : fallback(p.seed || i, 400);
+        return `
+        <div class="post-thumb ${isVideo ? 'is-video' : ''}" onclick="openPost(${i})" style="animation-delay: ${i * 0.05}s">
+          ${isVideo 
+            ? `<div class="video-thumb"><svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M8 5v14l11-7z"/></svg></div>
+               <img src="${fallback(p.seed || 'vid'+i, 400)}" alt="Video ${i+1}" loading="lazy">`
+            : `<img src="${imgSrc}" alt="Post ${i+1}" loading="lazy" onerror="this.src='${fallback(p.seed || i, 400)}'">`
+          }
           <div class="post-overlay">
             <span>♥ ${formatNumber(p.likes)}</span>
+            ${isVideo ? '<span>▶ Vídeo</span>' : ''}
           </div>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
     }
 
     function formatNumber(n) {
@@ -1799,25 +2387,31 @@
 
     function renderFeed() {
       const container = document.getElementById('feed-posts');
-      const users = ['tu_usuario', 'Amor ❤️', 'familia', 'playa'];
+      const users = ['tu_usuario', 'Amor ❤️', 'familia', 'playa', 'tu_usuario'];
       const avatars = [
         PROFILE_PIC,
         AMOR_AVATAR,
-        drive('1NpXQRCccUg_TR0yTzmr2tSLSVKOE_iBo'),
-        drive('1Qag0klaAchGBAxGZjqgprL_frp_Ub85d'),
+        drive(NEW_PICS[2]),
+        drive(NEW_PICS[3]),
+        PROFILE_PIC
       ];
 
-      container.innerHTML = postsData.slice(0, 5).map((p, i) => `
+      container.innerHTML = postsData.slice(0, 6).map((p, i) => {
+        const isVideo = p.type === 'video';
+        return `
         <article class="feed-post">
           <div class="feed-header">
-            <img class="feed-avatar" src="${avatars[i % avatars.length]}" alt="">
+            <img class="feed-avatar" src="${avatars[i % avatars.length]}" alt="" onerror="this.src='${fallback('av'+i, 80)}'">
             <span class="feed-user">${users[i % users.length]}</span>
             <button class="icon-btn" style="margin-left:auto">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
             </button>
           </div>
           <div class="feed-img-wrap" ondblclick="doubleTapLike(this)">
-            <img class="feed-img" src="${p.img}" alt="" loading="lazy">
+            ${isVideo 
+              ? `<iframe class="feed-video" src="${p.src}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+              : `<img class="feed-img" src="${p.src}" alt="" loading="lazy" onerror="this.src='${fallback(p.seed || i, 600)}'">`
+            }
             <div class="heart-burst">
               <svg width="90" height="90" viewBox="0 0 24 24" fill="#ff375f"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             </div>
@@ -1839,20 +2433,8 @@
           <div class="feed-likes">${formatNumber(p.likes)} Me gusta</div>
           <div class="feed-caption"><strong>${users[i % users.length]}</strong>${p.caption}</div>
           <div class="feed-time">Hace ${i + 1} horas</div>
-        </article>
-      `).join('');
-    }
-
-    function toggleLike(btn) {
-      btn.classList.toggle('liked');
-      const svg = btn.querySelector('svg');
-      if (btn.classList.contains('liked')) {
-        svg.setAttribute('fill', '#ff375f');
-        svg.setAttribute('stroke', '#ff375f');
-      } else {
-        svg.setAttribute('fill', 'none');
-        svg.setAttribute('stroke', 'currentColor');
-      }
+        </article>`;
+      }).join('');
     }
 
     function doubleTapLike(wrap) {
@@ -1869,25 +2451,72 @@
 
     function openPost(index) {
       const p = postsData[index];
-      document.getElementById('post-modal-img').src = p.img;
+      const modal = document.getElementById('post-modal');
+      const mediaContainer = document.getElementById('post-modal-media');
+      
+      if (p.type === 'video') {
+        mediaContainer.innerHTML = `<iframe src="${p.src}" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;height:55vh;border:none;background:#000;"></iframe>`;
+      } else {
+        mediaContainer.innerHTML = `<img class="post-modal-img" src="${p.src}" alt="" onerror="this.src='${fallback(p.seed || index, 800)}'">`;
+      }
+      
       document.getElementById('post-modal-likes').textContent = `${formatNumber(p.likes)} Me gusta`;
       document.getElementById('post-modal-caption').innerHTML = `<strong>tu_usuario</strong> ${p.caption}`;
-      document.getElementById('post-modal').classList.add('active');
+      modal.classList.add('active');
     }
 
     function closePost() {
       document.getElementById('post-modal').classList.remove('active');
+      document.getElementById('post-modal-media').innerHTML = '';
     }
 
     let currentStory = 0;
     let storyTimer = null;
+    let storyStartTime = 0;
+    let storyPaused = false;
+    let storyDuration = 5000;
 
     function openStory(index) {
+      clearTimeout(storyTimer);
       currentStory = index;
       const s = storiesData[index];
       document.getElementById('story-user-avatar').src = s.avatar;
       document.getElementById('story-user-name').textContent = s.name;
-      document.getElementById('story-img').src = s.media;
+      
+      const mediaEl = document.getElementById('story-media-content');
+      const isVideo = s.type === 'video';
+
+      // Duración: imágenes 5s, vídeos 18s (dan tiempo a cargar)
+      storyDuration = isVideo ? 18000 : 5000;
+      document.documentElement.style.setProperty('--story-duration', (storyDuration / 1000) + 's');
+
+      if (isVideo) {
+        // Mostrar loading mientras carga el vídeo
+        mediaEl.innerHTML = `
+          <div class="story-loading" id="story-loading">
+            <div class="spinner"></div>
+          </div>
+          <iframe id="story-iframe" src="${s.media}" allow="autoplay; encrypted-media" allowfullscreen 
+            style="width:100%;height:100%;border:none;opacity:0;transition:opacity 0.4s;"></iframe>
+        `;
+        // Cuando el iframe carga, ocultamos el spinner y empezamos el timer
+        const iframe = document.getElementById('story-iframe');
+        const loading = document.getElementById('story-loading');
+        let loaded = false;
+        const onLoad = () => {
+          if (loaded) return;
+          loaded = true;
+          if (loading) loading.style.display = 'none';
+          if (iframe) iframe.style.opacity = '1';
+          startStoryTimer();
+        };
+        iframe.onload = onLoad;
+        // Fallback por si onload no dispara (Drive a veces tarda)
+        setTimeout(onLoad, 3500);
+      } else {
+        mediaEl.innerHTML = `<img id="story-img" src="${s.media}" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='${fallback(s.seed || index, 800)}'">`;
+        startStoryTimer();
+      }
 
       const progress = document.getElementById('story-progress');
       progress.innerHTML = storiesData.map((_, i) => `
@@ -1897,12 +2526,13 @@
       `).join('');
 
       document.getElementById('story-viewer').classList.add('active');
-      startStoryTimer();
     }
 
     function startStoryTimer() {
       clearTimeout(storyTimer);
-      storyTimer = setTimeout(() => nextStory(), 5000);
+      storyPaused = false;
+      storyStartTime = Date.now();
+      storyTimer = setTimeout(() => nextStory(), storyDuration);
     }
 
     function nextStory() {
@@ -1922,13 +2552,16 @@
     function closeStory() {
       clearTimeout(storyTimer);
       document.getElementById('story-viewer').classList.remove('active');
+      // Limpiar iframe para que no siga cargando en segundo plano
+      const mediaEl = document.getElementById('story-media-content');
+      if (mediaEl) mediaEl.innerHTML = '';
     }
 
     function renderMessages() {
       const list = document.getElementById('messages-list');
       list.innerHTML = messagesData.map(m => `
         <div class="msg-item" onclick="openChat('${m.name}', '${m.avatar}')">
-          <img class="msg-avatar" src="${m.avatar}" alt="">
+          <img class="msg-avatar" src="${m.avatar}" alt="" onerror="this.src='${fallback('msg', 120)}'">
           <div class="msg-info">
             <div class="msg-top">
               <span class="msg-name">${m.name}</span>
@@ -1997,8 +2630,66 @@
       if (e.key === 'Escape') {
         closeStory();
         closePost();
+        closeModals();
       }
     });
+
+    // Extra features
+    function openEditProfile() {
+      const current = document.querySelector('.username-title')?.textContent || 'rivas_saenz';
+      const name = prompt('Nuevo nombre de usuario:', current);
+      if (name && name.trim()) {
+        document.querySelectorAll('.username-title').forEach(el => el.textContent = name.trim());
+        alert('✅ Usuario actualizado');
+      }
+    }
+
+    function shareProfile() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Mi perfil de Instagram',
+          text: 'Mira mi perfil estilo Instagram Liquid Glass',
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('🔗 Enlace copiado al portapapeles');
+      }
+    }
+
+    function openCreatePost() {
+      const caption = prompt('Escribe el caption de tu nueva publicación:');
+      if (caption && caption.trim()) {
+        const randomImg = postsData[Math.floor(Math.random() * postsData.length)].src || postsData[0].src;
+        postsData.unshift({
+          type: 'image',
+          src: randomImg,
+          likes: Math.floor(Math.random() * 500) + 50,
+          caption: caption.trim(),
+          seed: 'new' + Date.now()
+        });
+        renderPostsGrid();
+        renderFeed();
+        switchView('profile');
+        alert('✅ Publicación creada (simulada)');
+      }
+    }
+
+    function closeModals() {
+      document.querySelectorAll('.post-modal, .story-viewer').forEach(m => m.classList.remove('active'));
+    }
+
+    function toggleLike(btn) {
+      btn.classList.toggle('liked');
+      const svg = btn.querySelector('svg');
+      if (btn.classList.contains('liked')) {
+        svg.setAttribute('fill', '#ff375f');
+        svg.setAttribute('stroke', '#ff375f');
+      } else {
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+      }
+    }
 
     init();
   </script>
